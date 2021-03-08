@@ -37,8 +37,8 @@ tokens {
     ULONGLONG_NUMBER
 }
 
-@postinclude {
-#include "MySQLBaseLexer.h"
+@preinclude {
+from .status import status
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ BITWISE_AND_OPERATOR: '&';
 BITWISE_XOR_OPERATOR: '^';
 
 LOGICAL_OR_OPERATOR:
-    '||' {LOGICAL_OR_OPERATOR(PipesAsConcat, CONCAT_PIPES_SYMBOL, LOGICAL_OR_OPERATOR)  # setType(isSqlModeActive(PipesAsConcat) ? CONCAT_PIPES_SYMBOL : LOGICAL_OR_OPERATOR);
+    '||' {status.LOGICAL_OR_OPERATOR(CONCAT_PIPES_SYMBOL, LOGICAL_OR_OPERATOR)  # setType(isSqlModeActive(PipesAsConcat) ? CONCAT_PIPES_SYMBOL : LOGICAL_OR_OPERATOR);
     }
 ;
 BITWISE_OR_OPERATOR: '|';
@@ -594,7 +594,7 @@ NODEGROUP_SYMBOL:                N O D E G R O U P;
 NONE_SYMBOL:                     N O N E;                                    // SQL-2003-R
 NONBLOCKING_SYMBOL:              N O N B L O C K I N G                       {50700 < serverVersion and serverVersion < 50706}?;
 NOT_SYMBOL:
-    N O T                                                                    {NOT_SYMBOL(HighNotPrecedence, NOT2_SYMBOL, NOT_SYMBOL) # setType(isSqlModeActive(HighNotPrecedence) ? NOT2_SYMBOL: NOT_SYMBOL); }
+    N O T                                                                    {status.NOT_SYMBOL(HighNotPrecedence, NOT2_SYMBOL, NOT_SYMBOL) # setType(isSqlModeActive(HighNotPrecedence) ? NOT2_SYMBOL: NOT_SYMBOL); }
 ;                                                                            // SQL-2003-R
 NOW_SYMBOL:                      N O W                                       {setType(determineFunction(NOW_SYMBOL)) };
 NO_SYMBOL:                       N O;                                        // SQL-2003-R
@@ -638,7 +638,7 @@ PLUGIN_SYMBOL:                   P L U G I N;
 POINT_SYMBOL:                    P O I N T;
 POLYGON_SYMBOL:                  P O L Y G O N;                              // MYSQL
 PORT_SYMBOL:                     P O R T;
-POSITION_SYMBOL:                 P O S I T I O N                             {setType(determineFunction(POSITION_SYMBOL)) }; // SQL-2003-N
+POSITION_SYMBOL:                 P O S I T I O N                             {status.setType(status.determineFunction(POSITION_SYMBOL)) }; // SQL-2003-N
 PRECEDES_SYMBOL:                 P R E C E D E S                             {serverVersion >= 50700}?;
 PRECISION_SYMBOL:                P R E C I S I O N;                          // SQL-2003-R
 PREPARE_SYMBOL:                  P R E P A R E;                              // SQL-2003-R
@@ -1068,15 +1068,15 @@ fragment BACK_TICK:    '`';
 fragment SINGLE_QUOTE: '\'';
 fragment DOUBLE_QUOTE: '"';
 
-BACK_TICK_QUOTED_ID: BACK_TICK (({not isSqlModeActive(NoBackslashEscapes)}? '\\')? .)*? BACK_TICK;
+BACK_TICK_QUOTED_ID: BACK_TICK (({not status.isSqlModeActive(NoBackslashEscapes)}? '\\')? .)*? BACK_TICK;
 
 DOUBLE_QUOTED_TEXT: (
-        DOUBLE_QUOTE (({not isSqlModeActive(NoBackslashEscapes)}? '\\' .)? .)*? DOUBLE_QUOTE
+        DOUBLE_QUOTE (({not status.isSqlModeActive(NoBackslashEscapes)}? '\\' .)? .)*? DOUBLE_QUOTE
     )+
 ;
 
 SINGLE_QUOTED_TEXT: (
-        SINGLE_QUOTE (({not isSqlModeActive(NoBackslashEscapes)}? '\\')? .)*? SINGLE_QUOTE
+        SINGLE_QUOTE (({not status.isSqlModeActive(NoBackslashEscapes)}? '\\')? .)*? SINGLE_QUOTE
     )+
 ;
 

@@ -40,7 +40,6 @@ def delimiter_parse(container):
             yield body
             yield foot
         else:
-            print(fragment)
             raise RuntimeError
 
 
