@@ -38,6 +38,15 @@ options {
 
 //----------------------------------------------------------------------------------------------------------------------
 
+root
+    : queries? EOF
+    ;
+
+queries
+    : query queries
+    | query
+    ;
+
 query:
     EOF
     | (simpleStatement | beginWork) (SEMICOLON_SYMBOL EOF? | EOF)
