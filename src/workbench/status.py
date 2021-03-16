@@ -7,9 +7,15 @@ class Status:
     IgnoreSpace = 1 << 3,
     NoBackslashEscapes = 1 << 4
 
+    serverVersion = 81000
+    sqlMode = NoMode
+    inVersionComment = False
+
+    def determineNumericType(self, text):
+        print(text)
 
     def isSqlModeActive(self, mode):
-        return self.isSql & mode
+        return self.sqlMode and mode == 0
 
     def LOGICAL_OR_OPERATOR(self, CONCAT_PIPES_SYMBOL, OGICAL_OR_OPERATOR):
         if self.setType(self.isSqlModeActive(self.PipesAsConcat)):

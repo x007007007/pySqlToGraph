@@ -3,7 +3,7 @@ from workbench.MySQLLexer import MySQLLexer
 from workbench.MySQLParserListener import MySQLParserListener
 from workbench.MySQLParser import MySQLParser
 import re
-import sys
+import functools
 import chardet
 
 
@@ -14,20 +14,30 @@ class KeyPrinter(MySQLParserListener):
 
 class CustomMySQLParserListener(MySQLParserListener):
 
-    def enterRoot(self, ctx:MySQLParser.RootContext):
-        print("root")
-        print(ctx)
+    def default_enter(self, name, ctx):
+        print(name)
 
-    def enterQuery(self, ctx:MySQLParser.QueryContext):
-        print("entry query")
-        print(ctx)
+    def __getattribute__(self, item):
+        print(item)
+        #
+        if item.startswith("enter"):
+            return functools.partial(MySQLParserListener.__getattribute__(self, 'default_enter'), item)
+        return MySQLParserListener.__getattribute__(self, item)
 
-    def exitQuery(self, ctx:MySQLParser.QueryContext):
-        print('exit query')
-        print(ctx)
-
-    def exitSelectStatement(self, ctx:MySQLParser.SelectStatementContext):
-        print(f"exit select {ctx}")
+    # def enterRoot(self, ctx:MySQLParser.RootContext):
+    #     print("root")
+    #     print(ctx)
+    #
+    # def enterQuery(self, ctx:MySQLParser.QueryContext):
+    #     print("entry query")
+    #     print(ctx)
+    #
+    # def exitQuery(self, ctx:MySQLParser.QueryContext):
+    #     print('exit query')
+    #     print(ctx)
+    #
+    # def exitSelectStatement(self, ctx:MySQLParser.SelectStatementContext):
+    #     print(f"exit select {ctx}")
 
 
 def delimiter_parse(container):
@@ -63,6 +73,8 @@ if __name__ == "__main__":
             result = chardet.detect(fp.read())
         print(result)
         with open(pth, encoding=result['encoding']) as fp:
+            print(pth)
             for context in delimiter_parse(fp.read()):
                 print(context)
                 generate_tree(context)
+        break
