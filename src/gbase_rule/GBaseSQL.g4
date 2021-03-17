@@ -3,7 +3,8 @@
 grammar GBaseSQL;
 import GBaseSQLToken;
 @header {
-	package cn.gbase.gcluster.lexparse.gen;
+# header here
+
 }
 
 sqls_list
