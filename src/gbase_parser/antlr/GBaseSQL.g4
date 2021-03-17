@@ -8,61 +8,38 @@ import GBaseSQLToken;
 }
 
 sqls_list
-:
-//	( (sqls	(delimiter+ sqls)* )
-//	|(proc_func_sqls (delimiter + proc_func_sqls)*))
-//	delimiter? EOF
-(proc_func_sqls|sqls | delimiter)* EOF
+    :
+    //	( (sqls	(delimiter+ sqls)* )
+    //	|(proc_func_sqls (delimiter + proc_func_sqls)*))
+    //	delimiter? EOF
+    (proc_func_sqls|sqls)* EOF
 ;
 
 sqls
-:
-	(ddl_stmts
-	|dml_stmts
-	|dql_stmts
-	|dcl_stmts
-	|delimiters
-	)
-	delimiter?
+    : ddl_stmts
+	| dml_stmts
+	| dql_stmts
+	| dcl_stmts
 ;
 
-//add by qiaoqian 2015-07-01
-//增加delimiter
-delimiter
-:
-	';'
-	| '!!'
-	| '@@'
-	| '##'
-	|'$$'
-	| '%%'
-	| '^^'
-	| '&&'
-	| '**'
-	| '|'
-	| '||'
-	| '//'
-	|'\\\\'
-	| '!'
-	| '??'
-;
 
 //20150727add by qiaoqian
-proc_func_sqls:
-(create_proc_stmts
-|create_func_stmts
-|alter_sp
-|drop_sp
-|call_procedure
-|show_sp_status
-|show_create_sp
-)delimiter?;
+proc_func_sqls
+    : create_proc_stmts
+    | create_func_stmts
+    | alter_sp
+    | drop_sp
+    | call_procedure
+    | show_sp_status
+    | show_create_sp
 
-create_proc_stmts:
-K_CREATE (K_DEFINER  '=' DEFINER)? K_PROCEDURE  sp_name OPEN_PAR (proc_parameters)? CLOSE_PAR
-characteristic?
-(routine_body)*
 ;
+
+create_proc_stmts
+    : K_CREATE (K_DEFINER  '=' DEFINER)? K_PROCEDURE sp_name OPEN_PAR (proc_parameters)? CLOSE_PAR
+        characteristic?
+        (routine_body)*
+    ;
 
 sp_name:
 	(database_name DOT)?any_name
@@ -87,10 +64,14 @@ proc_parameters_director?any_name data_type
 proc_parameters_director:
 K_IN|K_OUT|K_INOUT
 ;
-characteristic:
-((K_CONTAINS K_SQL) |(K_NO K_SQL) | (K_READS K_SQL K_DATA) | (K_MODIFIES K_SQL K_DATA) )
-| (K_SQL K_SECURITY) (K_DEFINER | K_INVOKER )
-| K_COMMENT STRING_LITERAL
+characteristic
+    : ((K_CONTAINS K_SQL)
+        | (K_NO K_SQL)
+        | (K_READS K_SQL K_DATA)
+        | (K_MODIFIES K_SQL K_DATA)
+        )
+    | (K_SQL K_SECURITY) (K_DEFINER | K_INVOKER )
+    | K_COMMENT STRING_LITERAL
 ;
 //过程体  编号用于解析时设定的类型使用
 routine_body:
@@ -114,7 +95,7 @@ routine_body:
 	|routine_execute					//18
 	|routine_drop_prepare		//19
 	|call_procedure						//20
-	|	sqls											//1
+	|sqls											//1
 	|alter_sp									//21
 	|drop_sp									//22
 	|show_sp_status					//23
@@ -351,12 +332,6 @@ ddl_stmts
 	//       |create_proc
 	//       |create_func
 ;
-
-delimiters
-	:
-	K_DELIMITER (delimiter)?
-	;
-
 
 create_database
 :
@@ -1130,7 +1105,7 @@ any_name
 ;
 
 char_functions:
-any_name
+    any_name
 //解决token不能作为列名、别名等名称的问题
 //把name、status、函数名等token删除，把相应的关键字变为any_name。
 //	  K_ASCII_SYM

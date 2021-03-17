@@ -7,11 +7,6 @@ import functools
 import chardet
 
 
-class KeyPrinter(MySQLParserListener):
-    def exitKey(self, ctx):
-        print("Oh, a key!")
-
-
 class CustomMySQLParserListener(MySQLParserListener):
 
     def default_enter(self, name, ctx):
@@ -76,5 +71,6 @@ if __name__ == "__main__":
             print(pth)
             for context in delimiter_parse(fp.read()):
                 print(context)
-                generate_tree(context)
+                if context:
+                    generate_tree(context)
         break

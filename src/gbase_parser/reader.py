@@ -13,7 +13,10 @@ from gbase_parser.antlr.GBaseSQLToken import GBaseSQLToken
 class CustomMySQLParserListener(SpecSQLListener):
 
     def default_enter(self, name, ctx):
-        print(name)
+        print(name, ctx)
+
+    def enterCreate_proc_stmts(self, ctx:GBaseSQLParser.Create_proc_stmtsContext):
+        exit()
 
     def __getattribute__(self, item):
         print(item)
@@ -42,7 +45,7 @@ def generate_tree(context):
     stream = CommonTokenStream(lexer)
     parser = GBaseSQLParser(stream)
     tree = parser.sqls_list()
-
+    print(tree)
     printer = CustomMySQLParserListener()
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
@@ -54,9 +57,12 @@ if __name__ == "__main__":
     for pth in glob.glob("/home/xxc-dev-machine/workspace/bocwm/pySqlToGraph/test/gbase_sql/test_sql/*.sql"):
         with open(pth, "rb") as fp:
             result = chardet.detect(fp.read())
-        print(result)
         with open(pth, encoding=result['encoding']) as fp:
             for context in delimiter_parse(fp.read()):
+            # if context := fp.read():
                 if context:
+                    print("===========================start===============================")
+                    print(context)
+                    print("===========================end===============================")
                     generate_tree(context)
-        break
+        # break
