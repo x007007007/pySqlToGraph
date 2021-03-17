@@ -30,7 +30,7 @@ NOT_EQ4 : '^=';
 HYPHEN : '_';
 NOT : '!';
 POWER_OP : '^';
-EMPTY : '';
+EMPTY : ;
 LT_EQ_GT:'<=>';
 COLON : ':';
 AT : '@';
@@ -745,5 +745,5 @@ fragment Z : [zZ];
 
 fragment USER_VAR_SUBFIX1:	(  '`' (~'`' )+ '`'  ) ;
 fragment USER_VAR_SUBFIX2:	( '\'' (~'\'')+ '\'' ) ;
-fragment USER_VAR_SUBFIX3:	( '\"' (~'\"')+ '\"' ) ;
+fragment USER_VAR_SUBFIX3:	( '"' (~'"')+ '"' ) ;
 fragment USER_VAR_SUBFIX4:	( 'A'..'Z' | 'a'..'z' | '_' | '$' | '0'..'9' | DOT )+ ;
