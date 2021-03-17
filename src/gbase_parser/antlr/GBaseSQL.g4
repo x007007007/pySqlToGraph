@@ -351,7 +351,8 @@ ddl_stmts
 	//       |create_proc
 	//       |create_func
 ;
-	delimiters
+
+delimiters
 	:
 	K_DELIMITER (delimiter)?
 	;
