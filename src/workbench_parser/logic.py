@@ -1,7 +1,7 @@
 from antlr4 import InputStream, CommonTokenStream, ParseTreeWalker
-from workbench.MySQLLexer import MySQLLexer
-from workbench.MySQLParserListener import MySQLParserListener
-from workbench.MySQLParser import MySQLParser
+from workbench_parser.anltr.MySQLLexer import MySQLLexer
+from workbench_parser.anltr.MySQLParserListener import MySQLParserListener
+from workbench_parser.anltr.MySQLParser import MySQLParser
 import re
 import functools
 import chardet
