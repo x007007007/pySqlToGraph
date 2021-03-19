@@ -30,7 +30,7 @@ options {
 //----------------------------------------------------------------------------------------------------------------------
 
 @header {
-from .status import status
+from workbench_parser.status import status
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -1214,6 +1214,7 @@ lockedRowAction:
     SKIP_SYMBOL LOCKED_SYMBOL
     | NOWAIT_SYMBOL
 ;
+
 
 selectItemList: (selectItem | MULT_OPERATOR) (COMMA_SYMBOL selectItem)*
 ;

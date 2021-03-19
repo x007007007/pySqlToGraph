@@ -1,4 +1,4 @@
-from antlr4 import InputStream, CommonTokenStream, ParseTreeWalker
+from antlr4 import InputStream, CommonTokenStream, ParseTreeWalker, ParserRuleContext
 from workbench_parser.anltr.MySQLLexer import MySQLLexer
 from workbench_parser.anltr.MySQLParserListener import MySQLParserListener
 from workbench_parser.anltr.MySQLParser import MySQLParser
@@ -9,15 +9,15 @@ import chardet
 
 class CustomMySQLParserListener(MySQLParserListener):
 
-    def default_enter(self, name, ctx):
-        print(name)
+    # def default_enter(self, name, ctx):
+    #     print(name)
 
-    def __getattribute__(self, item):
-        print(item)
-        #
-        if item.startswith("enter"):
-            return functools.partial(MySQLParserListener.__getattribute__(self, 'default_enter'), item)
-        return MySQLParserListener.__getattribute__(self, item)
+    def enterEveryRule(self, ctx: ParserRuleContext):
+        print(ctx)
+
+    def enterSelectItem(self, ctx:MySQLParser.SelectItemContext):
+        print("enterSelectItem")
+
 
     # def enterRoot(self, ctx:MySQLParser.RootContext):
     #     print("root")
