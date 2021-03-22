@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+*.interp
+*.tokens
+/*Lexer.py
+/*Parser.py
+/*Listener.py
