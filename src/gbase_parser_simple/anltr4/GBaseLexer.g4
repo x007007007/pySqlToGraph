@@ -9,6 +9,20 @@ options {
     exportMacro = PARSERS_PUBLIC_TYPE;
 }
 
+@header {
+from gbase_parser_simple.lexer_status import status
+}
+
+
+tokens {
+    NOT2_SYMBOL,        // find_keyword mysql
+    CONCAT_PIPES_SYMBOL,
+
+    // Tokens assigned in NUMBER rule.
+    INT_NUMBER, // NUM in sql_yacc.yy
+    LONG_NUMBER,
+    ULONGLONG_NUMBER
+}
 
 // There are 3 types of block comments:
 // /* ... */ - The standard multi line comment.
