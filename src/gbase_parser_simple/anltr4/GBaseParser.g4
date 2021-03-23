@@ -51,9 +51,7 @@ queries
     | query
     ;
 
-query:
-    EOF
-    | (simpleStatement | beginWork) (SEMICOLON_SYMBOL EOF? | EOF)
+query: (simpleStatement | beginWork) (SEMICOLON_SYMBOL EOF? | EOF)
 ;
 
 simpleStatement:
