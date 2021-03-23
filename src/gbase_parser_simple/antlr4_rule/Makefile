@@ -3,11 +3,7 @@
 # alias grun='java org.antlr.v4.gui.TestRig'
 
 
-build: GBaseLexer.py GBaseParser.py
-
-GBaseLexer.py : GBaseLexer.g4 GBaseLexer_keyword.g4 GBaseLexer_symbol.g4
-	CLASSPATH=".:/usr/local/lib/antlr-4.9.1-complete.jar:$CLASSPATH" \
-java -jar /usr/local/lib/antlr-4.9.1-complete.jar -Dlanguage=Python3 GBaseLexer.g4
+build: GBaseParser.py
 
 GBaseParser.py: GBaseParser.g4 \
     GBaseParser_account.g4  \
@@ -37,4 +33,5 @@ GBaseParser.py: GBaseParser.g4 \
     GBaseParser_transaction.g4  \
     GBaseParser_update.g4  \
     GBaseParser_utility.g4
-	CLASSPATH=".:/usr/local/lib/antlr-4.9.1-complete.jar:$CLASSPATH" java -jar /usr/local/lib/antlr-4.9.1-complete.jar -Dlanguage=Python3 GBaseParser.g4
+	CLASSPATH=".:/usr/local/lib/antlr-4.9.1-complete.jar:$CLASSPATH" \
+ java -jar /usr/local/lib/antlr-4.9.1-complete.jar -Dlanguage=Python3 -listener -visitor -o ../pygram GBaseParser.g4 GBaseLexer.g4

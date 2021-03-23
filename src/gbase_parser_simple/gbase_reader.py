@@ -5,9 +5,9 @@ import chardet
 
 from antlr4 import InputStream, CommonTokenStream, ParseTreeWalker, ParserRuleContext
 
-from gbase_parser_simple.anltr4.GBaseParser import GBaseParser as GBaseSQLParser
-from gbase_parser_simple.anltr4.GBaseParserListener import GBaseParserListener as SpecSQLListener
-from gbase_parser_simple.anltr4.GBaseLexer import GBaseLexer as GBaseSQLLexer
+from gbase_parser_simple.pygram.GBaseParser import GBaseParser as GBaseSQLParser
+from gbase_parser_simple.pygram.GBaseParserListener import GBaseParserListener as SpecSQLListener
+from gbase_parser_simple.pygram.GBaseLexer import GBaseLexer as GBaseSQLLexer
 
 
 class CustomMySQLParserListener(SpecSQLListener):
