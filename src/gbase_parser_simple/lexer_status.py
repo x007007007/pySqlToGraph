@@ -1,3 +1,4 @@
+import re
 
 class Status:
     NoMode = 0
@@ -12,7 +13,14 @@ class Status:
     inVersionComment = False
 
     def determineNumericType(self, text):
-        print(text)
+        from gbase_parser_simple.pygram.GBaseLexer import GBaseLexer
+        if re.match(r"^\d+$", text):
+            return GBaseLexer.INT_NUMBER
+        elif re.match(r"^\d+\.\d+$"):
+            return GBaseLexer.FLOAT_NUMBER
+        else:
+            print(text)
+            raise SyntaxError
 
 
     def isSqlModeActive(self, mode):
