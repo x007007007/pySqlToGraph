@@ -1,6 +1,0 @@
-# Created by .ignore support plugin (hsz.mobi)
-MySQLLexer.py
-MySQLParser.py
-*.interp
-*.tokens
-/MySQLParserListener.py

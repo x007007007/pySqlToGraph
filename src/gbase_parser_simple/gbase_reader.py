@@ -3,27 +3,17 @@ import functools
 
 import chardet
 
-from antlr4 import InputStream, CommonTokenStream, ParseTreeWalker
+from antlr4 import InputStream, CommonTokenStream, ParseTreeWalker, ParserRuleContext
 
-from gbase_parser.antlr.GBaseSQLParser import GBaseSQLParser
-from gbase_parser.antlr.GBaseSQLListener import GBaseSQLListener as SpecSQLListener
-from gbase_parser.antlr.GBaseSQLToken import GBaseSQLToken
+from gbase_parser_simple.anltr4.GBaseParser import GBaseParser as GBaseSQLParser
+from gbase_parser_simple.anltr4.GBaseParserListener import GBaseParserListener as SpecSQLListener
+from gbase_parser_simple.anltr4.GBaseLexer import GBaseLexer as GBaseSQLLexer
 
 
 class CustomMySQLParserListener(SpecSQLListener):
 
-    def default_enter(self, name, ctx):
-        print(name, ctx)
-
-    def enterCreate_proc_stmts(self, ctx:GBaseSQLParser.Create_proc_stmtsContext):
-        exit()
-
-    def __getattribute__(self, item):
-        print(item)
-        #
-        if item.startswith("enter"):
-            return functools.partial(SpecSQLListener.__getattribute__(self, 'default_enter'), item)
-        return SpecSQLListener.__getattribute__(self, item)
+    def enterEveryRule(self, ctx:ParserRuleContext):
+        print(ctx.getText())
 
 
 def delimiter_parse(container):
@@ -41,12 +31,14 @@ def delimiter_parse(container):
 
 def generate_tree(context):
     input_stream = InputStream(context)
-    lexer = GBaseSQLToken(input_stream)
+    lexer = GBaseSQLLexer(input_stream)
+    print(lexer)
     stream = CommonTokenStream(lexer)
     parser = GBaseSQLParser(stream)
-    tree = parser.sqls_list()
+    tree = parser.root()
     print(tree)
     printer = CustomMySQLParserListener()
+    print(printer)
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
 
