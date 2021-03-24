@@ -37,8 +37,8 @@ VERSION_COMMENT_START: ('/*!' DIGITS) (
 
 // inVersionComment is a variable in the base lexer.
 // TODO: use a lexer mode instead of a member variable.
-MYSQL_COMMENT_START: '/*!' {inVersionComment = true}                     -> channel(HIDDEN);
-VERSION_COMMENT_END: '*/' {inVersionComment}? {inVersionComment = false} -> channel(HIDDEN);
+MYSQL_COMMENT_START: '/*!' {status.inVersionComment = true}                     -> channel(HIDDEN);
+VERSION_COMMENT_END: '*/' {status.inVersionComment}? {status.inVersionComment = false} -> channel(HIDDEN);
 BLOCK_COMMENT:       ( '/**/' | '/*' ~[!] .*? '*/')                         -> channel(HIDDEN);
 
 POUND_COMMENT:    '#' ~([\n\r])*                                   -> channel(HIDDEN);

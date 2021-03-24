@@ -10,7 +10,7 @@ options {
 
 // Identifiers excluding keywords (except if they are quoted). IDENT_sys in sql_yacc.yy.
 pureIdentifier:
-    (IDENTIFIER | DOUBLE_QUOTED_TEXT | BACK_TICK_QUOTED_ID)
+    (IDENTIFIER | BACK_TICK_QUOTED_ID)
     | {status.isSqlModeActive(status.AnsiQuotes)}? DOUBLE_QUOTED_TEXT
 ;
 

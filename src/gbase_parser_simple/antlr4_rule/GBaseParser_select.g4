@@ -349,7 +349,7 @@ tableFactor:
     | singleTableParens
     | derivedTable
     | tableReferenceListParens
-    | {status.serverVersion >= 80004}? tableFunction
+    | tableFunction  //{status.serverVersion >= 80004}?
 ;
 
 singleTable:
@@ -410,7 +410,9 @@ unionOption:
 ;
 
 tableAlias:
-    (AS_SYMBOL | {status.serverVersion < 80017}? EQUAL_OPERATOR)? identifier
+    (AS_SYMBOL
+   // | {status.serverVersion < 80017}? EQUAL_OPERATOR
+    )? identifier
 ;
 
 indexHintList:

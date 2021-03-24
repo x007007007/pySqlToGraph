@@ -10,13 +10,17 @@ options {
 //----------------------------------------------------------------------------------------------------------------------
 
 mergeIntoStatement:
-    MERGE_SYMBOL mergeHint? INTO_SYMBOL? tableReference
+    MERGE_SYMBOL
+    // mergeHint?
+    INTO_SYMBOL
+    tableReference
     USING_SYMBOL tableReference ON_SYMBOL mergeIntoStatementCondition
-    mergeUpdateClause? mergeInsertClause? oraleErrorLoggingClause?
+    mergeUpdateClause? mergeInsertClause?
+    // oraleErrorLoggingClause?
 ;
 
-mergeHint:
-;
+//mergeHint:
+//;
 
 mergeIntoStatementCondition:
     whereClause

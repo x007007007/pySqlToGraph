@@ -1,6 +1,6 @@
 import re
 import functools
-
+from gbase_parser_simple.test_help import read_sql
 import chardet
 
 from antlr4 import InputStream, CommonTokenStream, ParseTreeWalker, ParserRuleContext
@@ -31,11 +31,7 @@ def delimiter_parse(container):
 
 
 def generate_tree(context):
-    input_stream = InputStream(context)
-    lexer = GBaseSQLLexer(input_stream)
-    print(lexer)
-    stream = CommonTokenStream(lexer)
-    parser = GBaseSQLParser(stream)
+    parser = read_sql(context)
     tree = parser.root()
     print(tree)
     printer = CustomMySQLParserListener()
