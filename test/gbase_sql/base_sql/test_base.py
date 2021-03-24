@@ -15,9 +15,10 @@ from gbase_parser_simple.test_help import read_sql
     * */
     select 1;
     """,
-    r'select "1";',
+    r'select "ss";',
+    r'select `ss`;',
     r"""select '"';"""
-    r'select "\"";'
+    r"select '\'';"
 ], [
     'root',
     # 'simpleStatement'
