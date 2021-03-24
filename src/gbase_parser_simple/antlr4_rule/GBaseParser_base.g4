@@ -611,6 +611,7 @@ identifierKeywordsUnambiguous:
         | RESUME_SYMBOL
         | RETAIN_SYMBOL
         | RETURNED_SQLSTATE_SYMBOL
+        | RETURNED_GBASE_ERRNO_SYMBOL
         | RETURNS_SYMBOL
         | REUSE_SYMBOL
         | REVERSE_SYMBOL
@@ -1100,6 +1101,7 @@ roleOrLabelKeyword:
         | RESUME_SYMBOL
         | RETAIN_SYMBOL                 // Conditionally set in the lexer.
         | RETURNED_SQLSTATE_SYMBOL
+        | RETURNED_GBASE_ERRNO_SYMBOL   // Gbase ERRNO
         | RETURNS_SYMBOL
         | REUSE_SYMBOL                  // Conditionally set in the lexer.
         | REVERSE_SYMBOL

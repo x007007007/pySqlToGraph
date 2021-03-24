@@ -170,6 +170,7 @@ conditionInformationItem:
     (variable | identifier) EQUAL_OPERATOR (
         signalInformationItemName
         | RETURNED_SQLSTATE_SYMBOL
+        | RETURNED_GBASE_ERRNO_SYMBOL
     )
 ;
 

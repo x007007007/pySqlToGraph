@@ -606,6 +606,7 @@ RESTORE_SYMBOL:                  R E S T O R E;
 RESTRICT_SYMBOL:                 R E S T R I C T;
 RESUME_SYMBOL:                   R E S U M E;
 RETURNED_SQLSTATE_SYMBOL:        R E T U R N E D '_' S Q L S T A T E;
+RETURNED_GBASE_ERRNO_SYMBOL:     G B A S E '_' E R R N O;                    // gbase_errno
 RETURNS_SYMBOL:                  R E T U R N S;                              // SQL-2003-R
 RETURN_SYMBOL:                   R E T U R N?;                               // SQL-2003-R
 REVERSE_SYMBOL:                  R E V E R S E;
