@@ -19,12 +19,12 @@ class Status:
         elif re.match(r"^\d+\.\d+$"):
             return GBaseLexer.FLOAT_NUMBER
         else:
-            print(text)
+            # print(text)
             raise SyntaxError
 
 
     def isSqlModeActive(self, mode):
-        print(f"isSqlModeActive, {mode}")
+        # print(f"isSqlModeActive, {mode}")
         return self.sqlMode and mode == 0
 
     def LOGICAL_OR_OPERATOR(self, CONCAT_PIPES_SYMBOL, OGICAL_OR_OPERATOR):

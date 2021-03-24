@@ -21,7 +21,7 @@ insertLockOption:
     | DELAYED_SYMBOL // Only allowed if no select is used. Check in the semantic phase.
     | HIGH_PRIORITY_SYMBOL
 ;
-
+// (c1, c3, ...) value (1,2,3,4)
 insertFromConstructor:
     (OPEN_PAR_SYMBOL fields? CLOSE_PAR_SYMBOL)? insertValues
 ;

@@ -14,6 +14,7 @@ import
     GBaseParser_insert,
     GBaseParser_install,
     GBaseParser_load,
+    GBaseParser_merge_into,
     GBaseParser_name_ref,
     GBaseParser_prepared,
     GBaseParser_rename,
@@ -51,7 +52,7 @@ queries
     | query
     ;
 
-query: (simpleStatement | beginWork) (SEMICOLON_SYMBOL EOF? | EOF)
+query: (simpleStatement | beginWork) SEMICOLON_SYMBOL
 ;
 
 simpleStatement:
@@ -59,6 +60,7 @@ simpleStatement:
 //    alterStatement
 //    |
     createStatement
+    | mergeIntoStatement
     | dropStatement
 //    | renameTableStatement
     | truncateTableStatement

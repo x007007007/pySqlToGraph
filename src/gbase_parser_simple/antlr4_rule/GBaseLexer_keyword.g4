@@ -443,6 +443,7 @@ MASTER_TLS_VERSION_SYMBOL:       M A S T E R '_' T L S '_' V E R S I O N     {st
 MASTER_USER_SYMBOL:              M A S T E R '_' U S E R;
 MASTER_HEARTBEAT_PERIOD_SYMBOL:  M A S T E R '_' H E A R T B E A T '_' P E R I O D?;
 MATCH_SYMBOL:                    M A T C H;                                  // SQL-2003-R
+MATCHED_SYMBOL:                  M A T C H E D;                                 // Gbase Oracle
 MAX_CONNECTIONS_PER_HOUR_SYMBOL: M A X '_' C O N N E C T I O N S '_' P E R '_' H O U R;
 MAX_QUERIES_PER_HOUR_SYMBOL:     M A X '_' Q U E R I E S '_' P E R '_' H O U R;
 MAX_ROWS_SYMBOL:                 M A X '_' R O W S;

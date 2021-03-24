@@ -13,6 +13,7 @@ from gbase_parser_simple.pygram.GBaseLexer import GBaseLexer as GBaseSQLLexer
 class CustomMySQLParserListener(SpecSQLListener):
 
     def enterEveryRule(self, ctx:ParserRuleContext):
+        print("enterEveryRule")
         print(ctx.getText())
 
 
