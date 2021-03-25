@@ -54,7 +54,7 @@ FLOAT_NUMBER:   (DIGITS? DOT_SYMBOL)? DIGITS [eE] (MINUS_OPERATOR | PLUS_OPERATO
 // Hence it's defined before all keywords.
 // Here we make use of the ability in our base lexer to emit multiple tokens with a single rule.
 DOT_IDENTIFIER:
-    DOT_SYMBOL LETTER_WHEN_UNQUOTED_NO_DIGIT LETTER_WHEN_UNQUOTED* {pass # emitDot() } -> type(IDENTIFIER)
+    DOT_SYMBOL LETTER_WHEN_UNQUOTED_NO_DIGIT LETTER_WHEN_UNQUOTED* {status.emitDot() } -> type(IDENTIFIER)
 ;
 
 /*

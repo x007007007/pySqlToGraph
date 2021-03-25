@@ -4,7 +4,7 @@ import GBaseLexer_symbol,
 
 
 options {
-//    superClass = MySQLBaseLexer;
+    superClass = GBaseBaseLexer;
     tokenVocab = predefined; // Keyword tokens in a predefined order for simpler checks.
     exportMacro = PARSERS_PUBLIC_TYPE;
 }
