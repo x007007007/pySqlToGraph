@@ -18,9 +18,9 @@ from gbase_parser_simple.test_help import read_sql
     'select b "c", d as e from a;',
     "select a.b c, d e from a as f;",
     "select a.b as c, d.x  e from a as f;",
-    # "select `f`.`b` c, d e from a f, e as g;",
-    # 'select "f"."b" c, d e from a `f`, e g;',
-    # "select b c, d e from a f, (select x as b, y c from z a) as g;"
+    "select `f`.`b` c, d e from a f, e as g;",
+    'select "f"."b" c, d e from a `f`, e g;',
+    "select b c, d e from a f, (select x as b, y c from z a) as g;"
 ], [
     'selectStatement',
     # 'simpleStatement'

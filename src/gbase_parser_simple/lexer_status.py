@@ -12,6 +12,9 @@ class Status:
     _sqlMode = NoMode
     _inVersionComment = False
 
+    def __init__(self):
+        self._sqlMode = self.AnsiQuotes | self.PipesAsConcat | self.HighNotPrecedence
+
     @property
     def sqlMode(self):
         return self._sqlMode
@@ -41,8 +44,9 @@ class Status:
             raise SyntaxError
 
     def isSqlModeActive(self, mode):
-        print(f"isSqlModeActive, {mode}")
-        return self.sqlMode and mode == 0
+        res = (self.sqlMode & mode) != 0
+        print(f"isSqlModeActive, {mode}, {res}")
+        return res
 
     def LOGICAL_OR_OPERATOR(self, CONCAT_PIPES_SYMBOL, OGICAL_OR_OPERATOR):
         print("LOGICAL_OR_OPERATOR")
@@ -59,6 +63,9 @@ class Status:
     def determineFunction(self, POSITION_SYMBOL):
         print("determineFunction")
         pass
+
+    def emitDot(self):
+        print("emitDot")
 
 
 status = Status()

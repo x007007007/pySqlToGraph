@@ -31,3 +31,4 @@ def read_sql(sql_str):
     parser = GBaseSQLParser(stream)
     parser.addErrorListener(MyErrorListener())
     return parser
+
