@@ -25,9 +25,10 @@ class GBaseBaseLexer(Lexer):
         cpos = self.column
         lpos = self.line
         eof = self._factory.create(self._tokenFactorySourcePair, self.DOT_SYMBOL, None, Token.DEFAULT_CHANNEL, self._input.index,
-                                   self._input.index-1, lpos, cpos)
-        self.emitToken(eof)
-        self._pendingTokens.append(eof)
+                                   self._input.index, lpos, cpos)
+        # self.emitToken(eof)
+        # self._pendingTokens.append(eof)
+        print(f"line {lpos}:{cpos}: dot Emit {eof}")
         return eof
 
     def nextToken(self):
