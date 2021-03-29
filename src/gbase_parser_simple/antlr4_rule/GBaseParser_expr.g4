@@ -7,20 +7,23 @@ options {
 }
 
 //----------------- Expression support ---------------------------------------------------------------------------------
+exprTestEntry:
+    expr EOF;
 
 expr:
-    boolPri (IS_SYMBOL notRule? the_type = (TRUE_SYMBOL | FALSE_SYMBOL | UNKNOWN_SYMBOL))? # exprIs
-    | NOT_SYMBOL expr                                                                  # exprNot
-    | expr op = (AND_SYMBOL | LOGICAL_AND_OPERATOR) expr                               # exprAnd
-    | expr XOR_SYMBOL expr                                                             # exprXor
-    | expr op = (OR_SYMBOL | LOGICAL_OR_OPERATOR) expr                                 # exprOr
+    boolPri
+//    (IS_SYMBOL notRule? the_type = (TRUE_SYMBOL | FALSE_SYMBOL | UNKNOWN_SYMBOL))? # exprIs
+//    | NOT_SYMBOL expr                                                                  # exprNot
+//    | expr op = (AND_SYMBOL | LOGICAL_AND_OPERATOR) expr                               # exprAnd
+//    | expr XOR_SYMBOL expr                                                             # exprXor
+//    | expr op = (OR_SYMBOL | LOGICAL_OR_OPERATOR) expr                                 # exprOr
 ;
 
 boolPri:
     predicate                                           # primaryExprPredicate
-    | boolPri IS_SYMBOL notRule? NULL_SYMBOL            # primaryExprIsNull
-    | boolPri compOp predicate                          # primaryExprCompare
-    | boolPri compOp (ALL_SYMBOL | ANY_SYMBOL) subquery # primaryExprAllAny
+//    | boolPri IS_SYMBOL notRule? NULL_SYMBOL            # primaryExprIsNull
+//    | boolPri compOp predicate                          # primaryExprCompare
+//    | boolPri compOp (ALL_SYMBOL | ANY_SYMBOL) subquery # primaryExprAllAny
 ;
 
 compOp:

@@ -18,7 +18,8 @@ options {
 // A name for a field (column/index). Can be qualified with the current schema + table (although it's not a reference).
 fieldIdentifier:
     dotIdentifier
-    | qualifiedIdentifier dotIdentifier?
+    | qualifiedIdentifier
+//    dotIdentifier?
 ;
 
 columnName:

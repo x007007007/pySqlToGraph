@@ -40,7 +40,7 @@ class Status:
         elif re.match(r"^\d+\.\d+$"):
             return GBaseLexer.FLOAT_NUMBER
         else:
-            # print(text)
+            print(text)
             raise SyntaxError
 
     def isSqlModeActive(self, mode):
@@ -63,9 +63,6 @@ class Status:
     def determineFunction(self, POSITION_SYMBOL):
         print("determineFunction")
         pass
-
-    def emitDot(self):
-        print("emitDot")
 
 
 status = Status()
