@@ -1,4 +1,5 @@
 # Generated from GBaseLexer.g4 by ANTLR 4.9.1
+import logging
 from antlr4 import *
 from io import StringIO
 from typing.io import TextIO
@@ -8,11 +9,10 @@ import sys
 from gbase_parser_simple.lexer_status import status
 
 
-class GBaseBaseLexer(Lexer):
+LOGGER = logging.getLogger(__name__)
 
-    def __init__(self, *args, **kwargs):
-        super(GBaseBaseLexer, self).__init__(*args, **kwargs)
-        self._pendingTokens = []
+
+class GBaseBaseLexer(Lexer):
 
     def dotEmit(self):
         """
@@ -24,12 +24,12 @@ class GBaseBaseLexer(Lexer):
         """
         cpos = self.column
         lpos = self.line
-        eof = self._factory.create(self._tokenFactorySourcePair, self.DOT_SYMBOL, None, Token.DEFAULT_CHANNEL, self._input.index,
-                                   self._input.index, lpos, cpos)
-        # self.emitToken(eof)
-        # self._pendingTokens.append(eof)
-        print(f"line {lpos}:{cpos}: dot Emit {eof}")
-        return eof
+        dot = self._factory.create(self._tokenFactorySourcePair, self.DOT_SYMBOL, self._text, self._channel,
+                                   self._tokenStartCharIndex,
+                                   self._tokenStartCharIndex, lpos, cpos)
+        dot.column = self.column - self.getCharIndex() + self._tokenStartCharIndex + 1
+        self.emitToken(dot)
+        self._input.seek(self._tokenStartCharIndex+1)
 
     def nextToken(self):
         """
@@ -53,14 +53,8 @@ class GBaseBaseLexer(Lexer):
 
         :return:
         """
-        if len(self._pendingTokens) > 0:
-            return self._pendingTokens.pop()
-
         nextToken = super(GBaseBaseLexer, self).nextToken()
-        if len(self._pendingTokens) > 0:
-            res = self._pendingTokens.pop()
-            self._pendingTokens.append(nextToken)
-            return res
+        print(f"default: {nextToken}")
         return nextToken
 
 

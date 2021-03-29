@@ -3,9 +3,9 @@
 # alias grun='java org.antlr.v4.gui.TestRig'
 
 
-build: GBaseParser.py
+build: ../pygram/GBaseParser.py
 
-GBaseParser.py: GBaseParser.g4 \
+../pygram/GBaseParser.py: GBaseParser.g4 \
     GBaseParser_account.g4  \
     GBaseParser_admin_other.g4  \
     GBaseParser_alter.g4  \
