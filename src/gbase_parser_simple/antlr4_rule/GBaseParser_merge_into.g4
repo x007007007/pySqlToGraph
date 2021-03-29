@@ -14,17 +14,13 @@ mergeIntoStatement:
     // mergeHint?
     INTO_SYMBOL
     tableReference
-    USING_SYMBOL tableReference ON_SYMBOL mergeIntoStatementCondition
+    USING_SYMBOL tableReference ON_SYMBOL exprListWithParentheses
     mergeUpdateClause? mergeInsertClause?
     // oraleErrorLoggingClause?
 ;
 
 //mergeHint:
 //;
-
-mergeIntoStatementCondition:
-    whereClause
-;
 
 mergeUpdateClause:
     WHEN_SYMBOL MATCHED_SYMBOL THEN_SYMBOL UPDATE_SYMBOL SET_SYMBOL updateList whereClause? mergeUpdateClauseDelete?

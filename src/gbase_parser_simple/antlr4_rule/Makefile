@@ -19,6 +19,7 @@ build: ../pygram/GBaseParser.py
     GBaseParser_insert.g4  \
     GBaseParser_install.g4  \
     GBaseParser_load.g4  \
+    GBaseParser_merge_into.g4 \
     GBaseParser_name_ref.g4  \
     GBaseParser_prepared.g4  \
     GBaseParser_rename.g4  \

@@ -21,9 +21,9 @@ expr:
 
 boolPri:
     predicate                                           # primaryExprPredicate
-//    | boolPri IS_SYMBOL notRule? NULL_SYMBOL            # primaryExprIsNull
-//    | boolPri compOp predicate                          # primaryExprCompare
-//    | boolPri compOp (ALL_SYMBOL | ANY_SYMBOL) subquery # primaryExprAllAny
+    | boolPri IS_SYMBOL notRule? NULL_SYMBOL            # primaryExprIsNull
+    | boolPri compOp predicate                          # primaryExprCompare
+    | boolPri compOp (ALL_SYMBOL | ANY_SYMBOL) subquery # primaryExprAllAny
 ;
 
 compOp:

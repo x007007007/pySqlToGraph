@@ -6,7 +6,7 @@ from gbase_parser_simple.test_help import read_sql
 @pytest.mark.parametrize("sql,entry_name", itertools.product([
     "select * from a;",
     "select b, c from a;",
-    "select b as c, d e from a;",
+    "select b as c, d e from a.b;",
     "select b c, d as e from a;",
     "select b c, d e from a as f;",
     "select b c, d e from a f, e as g;",
