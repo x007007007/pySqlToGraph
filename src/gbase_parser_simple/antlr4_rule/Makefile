@@ -6,6 +6,9 @@
 build: ../pygram/GBaseParser.py
 
 ../pygram/GBaseParser.py: GBaseParser.g4 \
+	GBaseLexer_symbol.g4 \
+	GBaseLexer_keyword.g4 \
+	GBaseLexer.g4 \
     GBaseParser_account.g4  \
     GBaseParser_admin_other.g4  \
     GBaseParser_alter.g4  \

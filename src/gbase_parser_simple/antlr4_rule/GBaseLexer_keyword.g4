@@ -43,7 +43,7 @@ fragment HEXDIGIT: [0-9a-fA-F];
 HEX_NUMBER: ('0x' HEXDIGIT+) | ('x\'' HEXDIGIT+ '\'');
 BIN_NUMBER: ('0b' [01]+) | ('b\'' [01]+ '\'');
 
-INT_NUMBER: DIGITS {self.type = status.determineNumericType(self.text) };
+INT_NUMBER: DIGITS {self.type = self.determineNumericType(self.text) };
 
 // Float types must be handled first or the DOT_IDENTIIFER rule will make them to identifiers
 // (if there is no leading digit before the dot).
