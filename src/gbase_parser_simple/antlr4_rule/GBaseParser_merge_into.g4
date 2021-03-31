@@ -32,7 +32,7 @@ mergeUpdateClauseDelete:
 
 //
 mergeInsertClause:
-    WHEN_SYMBOL NOT_SYMBOL MATCHED_SYMBOL THEN_SYMBOL INSERT_SYMBOL insertFromConstructor whereClause?
+    WHEN_SYMBOL notRule MATCHED_SYMBOL THEN_SYMBOL INSERT_SYMBOL insertFromConstructor whereClause?
 ;
 
 oraleErrorLoggingClause:
