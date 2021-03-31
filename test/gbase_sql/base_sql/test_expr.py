@@ -19,6 +19,37 @@ def test_base_sample_expr(sql: str, entry_name):
     tree = getattr(parser, entry_name)()
 
 
+@pytest.mark.parametrize("sql,entry_name", itertools.product(
+    [
+        '1',
+        '2'
+    ], [
+        "literal",
+        "simpleExpr"
+    ]
+))
+def test_base_expr_literal(sql: str, entry_name):
+    parser = read_sql(sql)
+    tree = getattr(parser, entry_name)()
+
+
+@pytest.mark.parametrize("sql,entry_name", itertools.product(
+    [
+        '999999',
+        '.aaaa',
+        '@aa',
+        'not @@aaa',
+        '@@aaa || 666',
+    ], [
+        "simpleExpr",
+        "bitExpr",
+    ]
+))
+def test_base_expr_simple_expr(sql: str, entry_name):
+    parser = read_sql(sql)
+    tree = getattr(parser, entry_name)()
+
+
 @pytest.mark.parametrize("sql,entry_name", itertools.product([
     "a = 1",
     "a = 1 and b = 1",

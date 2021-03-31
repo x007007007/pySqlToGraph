@@ -86,7 +86,7 @@ simpleStatement:
 //    | accountManagementStatement
 //    | tableAdministrationStatement
 //    | installUninstallStatment
-//    | setStatement // SET PASSWORD is handled in accountManagementStatement.
+    | setStatement // SET PASSWORD is handled in accountManagementStatement.
 //    | showStatement
 //    | {status.serverVersion >= 80000}? resourceGroupManagement
 //    | otherAdministrativeStatement

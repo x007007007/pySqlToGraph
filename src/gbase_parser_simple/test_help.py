@@ -4,6 +4,8 @@ from gbase_parser_simple.pygram.GBaseParser import GBaseParser as GBaseSQLParser
 from gbase_parser_simple.pygram.GBaseParserListener import GBaseParserListener as SpecSQLListener
 from gbase_parser_simple.pygram.GBaseLexer import GBaseLexer as GBaseSQLLexer
 from antlr4.error.ErrorListener import ErrorListener
+import warnings
+
 
 
 class MyErrorListener(ErrorListener):
@@ -15,13 +17,18 @@ class MyErrorListener(ErrorListener):
         raise SyntaxError(f"Oh no!! {line} {column} {msg}")
 
     def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs):
-        raise Exception("Oh no!! reportAmbiguity")
+        # raise Exception("Oh no!! reportAmbiguity")
+        warnings.warn("Oh no!! reportAmbiguity")
 
     def reportAttemptingFullContext(self, recognizer, dfa, startIndex, stopIndex, conflictingAlts, configs):
-        raise Exception("Oh no!! reportAttemptingFullContext")
+        # raise Exception("Oh no!! reportAttemptingFullContext")
+        warnings.warn("Oh no!! reportAttemptingFullContext")
+        pass
+
 
     def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex, prediction, configs):
-        raise Exception("Oh no!! reportContextSensitivity")
+        # raise Exception("Oh no!! reportContextSensitivity")
+        warnings.warn("Oh no!! reportContextSensitivity")
 
 
 def read_sql(sql_str):
