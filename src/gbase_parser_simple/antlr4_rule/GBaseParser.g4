@@ -44,7 +44,7 @@ options {
 
 
 root
-    : queries? EOF
+    : queries? EOF?
     ;
 
 queries
