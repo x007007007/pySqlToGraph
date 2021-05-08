@@ -8,6 +8,7 @@ import
     GBaseParser_base,
     GBaseParser_create,
     GBaseParser_clone,
+    GbaseParser_delete,
     GBaseParser_dlm,
     GBaseParser_drop,
     GBaseParser_expr,
