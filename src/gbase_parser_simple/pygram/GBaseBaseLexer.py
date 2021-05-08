@@ -3,7 +3,7 @@ from antlr4 import *
 
 
 # from gbase_parser_simple.pygram.lexer_parser_shared_status import status
-
+from .lexer_parser_shared_status import BridgeOfLexerAndParserStatus
 
 LOGGER = logging.getLogger(__name__)
 
@@ -189,3 +189,31 @@ class GBaseBaseLexer(Lexer):
                 return smaller
             else:
                 return bigger
+
+    def determineFunction(self, status: BridgeOfLexerAndParserStatus, POSITION_SYMBOL):
+        """
+          // Skip any whitespace character if the sql mode says they should be ignored,
+          // before actually trying to match the open parenthesis.
+          if (isSqlModeActive(IgnoreSpace)) {
+            size_t input = _input->LA(1);
+            while (input == ' ' || input == '\t' || input == '\r' || input == '\n') {
+              getInterpreter<atn::LexerATNSimulator>()->consume(_input);
+              channel = HIDDEN;
+              type = MySQLLexer::WHITESPACE;
+              input = _input->LA(1);
+            }
+          }
+
+          return _input->LA(1) == '(' ? proposed : MySQLLexer::IDENTIFIER;
+        :return:
+        """
+        if status.isSqlModeActive(status.IgnoreSpace):
+            input = self._input.LA(1)
+
+            while input in r" \t\r\n":
+                self._interp.consume(self._input)
+                self._channel = self.HIDDEN
+                self._type = self.WHITESPACE
+                input = self._input.LA(1)
+
+        return POSITION_SYMBOL if self._input.LA(1) else self.IDENTIFIER

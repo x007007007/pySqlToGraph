@@ -1,14 +1,11 @@
-import re
 from neo4j import GraphDatabase
-from gbase_parser_simple.test_help import read_sql
+from gbase_parser_simple.test_help import read_sql, delimiter_parse
 import chardet
-import glob
 
-from antlr4 import InputStream, CommonTokenStream, ParseTreeWalker, ParserRuleContext
+from antlr4 import ParseTreeWalker
 
 from gbase_parser_simple.pygram.GBaseParser import GBaseParser
 from gbase_parser_simple.pygram.GBaseParserListener import GBaseParserListener as SpecSQLListener
-from gbase_parser_simple.pygram.GBaseLexer import GBaseLexer
 
 
 class DatabaseExample:
@@ -99,21 +96,7 @@ class CustomMySQLParserListener(SpecSQLListener):
         db.close()
 
 
-def delimiter_parse(container):
-    head, *body_and_foots = re.split(r"DELIMITER\s+", container, flags=re.I | re.M | re.S)
-    yield f"{head.strip()};"
-    for fragment in body_and_foots:
-        if frag_res := re.match("^(?P<DELI>.+?)\s*\n(.*)", fragment, re.I | re.S | re.S):
-            split_token, context = frag_res.groups()
-            body, foot = context.split(split_token)
-            yield f"{body.strip()};"
-            yield f"{foot.strip()};"
-        else:
-            raise RuntimeError
-
-
 def generate_tree(context, db):
-
     parser = read_sql(context)
     tree = parser.root()
     printer = CustomMySQLParserListener()
