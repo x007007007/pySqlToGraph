@@ -1,13 +1,8 @@
-# Generated from GBaseLexer.g4 by ANTLR 4.9.1
 import logging
 from antlr4 import *
-import re
-from io import StringIO
-from typing.io import TextIO
-import sys
 
 
-from gbase_parser_simple.lexer_status import status
+# from gbase_parser_simple.pygram.lexer_parser_shared_status import status
 
 
 LOGGER = logging.getLogger(__name__)

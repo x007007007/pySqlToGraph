@@ -30,6 +30,7 @@ class DatabaseExample:
 
     @staticmethod
     def _exec(tx, cypher):
+        print(cypher)
         tx.run(cypher)
 
     def create_end_node(self, name, text):
@@ -123,11 +124,11 @@ def generate_tree(context, db):
 
 def analysis_tree(db):
     rule = os.path.join(os.path.dirname(__file__), "neo4j_rule/*.cypher")
-    for fpath in glob.glob(rule):
-        with open(fpath) as fp:
-            for query in fp.read().split(";"):
-
-                db.exec(query)
+    # for fpath in glob.glob(rule):
+    #     print(fpath)
+    #     with open(fpath) as fp:
+    #         for query in fp.read().split(";"):
+    #             db.exec(query)
 
 
 if __name__ == "__main__":
@@ -137,15 +138,15 @@ if __name__ == "__main__":
     db = DatabaseExample("neo4j://localhost:7687", "neo4j", "123456")
     # db.clean()
 
-    # for pth in glob.glob("/home/xxc-dev-machine/workspace/bocwm/pySqlToGraph/test/gbase_sql/test_sql/*.sql"):
-    #     with open(pth, "rb") as fp:
-    #         result = chardet.detect(fp.read())
-    #     with open(pth, encoding=result['encoding']) as fp:
-    #         for context in delimiter_parse(fp.read()):
-    #             if context:
-    #                 print("===========================start===============================")
-    #                 print(context)
-    #                 print("===========================end===============================")
-    #                 generate_tree(context, db)
-    #     # break
+    for pth in glob.glob("/home/xxc-dev-machine/workspace/bocwm/pySqlToGraph/test/gbase_sql/test_sql/*.sql"):
+        with open(pth, "rb") as fp:
+            result = chardet.detect(fp.read())
+        with open(pth, encoding=result['encoding']) as fp:
+            for context in delimiter_parse(fp.read()):
+                if context:
+                    print("===========================start===============================")
+                    print(context)
+                    print("===========================end===============================")
+                    generate_tree(context, db)
+        # break
     analysis_tree(db)

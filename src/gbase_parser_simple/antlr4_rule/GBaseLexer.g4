@@ -10,7 +10,7 @@ options {
 }
 
 @header {
-from gbase_parser_simple.lexer_status import status
+from gbase_parser_simple.pygram.lexer_parser_shared_status import status
 }
 
 

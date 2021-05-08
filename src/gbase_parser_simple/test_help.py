@@ -7,7 +7,6 @@ from antlr4.error.ErrorListener import ErrorListener
 import warnings
 
 
-
 class MyErrorListener(ErrorListener):
 
     def __init__(self):
