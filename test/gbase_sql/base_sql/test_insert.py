@@ -3,8 +3,11 @@ import pytest
 from gbase_parser_simple.test_help import read_sql
 
 """
-INSERT INTO table_name (column1, column2, column3, ...)
-VALUES (value1, value2, value3, ...); 
+example select 
+
+    :: INSERT INTO table_name (column1, column2, column3, ...)
+        VALUES (value1, value2, value3, ...); 
+
 """
 
 @pytest.mark.parametrize("sql,entry_name", itertools.product([
