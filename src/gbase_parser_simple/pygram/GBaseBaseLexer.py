@@ -155,7 +155,9 @@ class GBaseBaseLexer(Lexer):
 
         length = len(text)
         if negative:
-            if length == long_len:
+            if length < long_len:
+                return self.INT_NUMBER
+            elif length == long_len:
                 cmp = signed_long_str[:1]
                 smaller = self.INT_NUMBER   # If <= signed_long_str
                 bigger = self.LONG_NUMBER   # If >= signed_long_str
@@ -168,7 +170,9 @@ class GBaseBaseLexer(Lexer):
                 smaller = self.LONG_NUMBER  # If <= signed_longlong_str
                 bigger = self.DECIMAL_NUMBER
         else:
-            if length == long_len:
+            if length < long_len:
+                return self.INT_NUMBER
+            elif length == long_len:
                 cmp = long_str
                 smaller = self.INT_NUMBER
                 bigger = self.LONG_NUMBER
@@ -217,3 +221,4 @@ class GBaseBaseLexer(Lexer):
                 input = self._input.LA(1)
 
         return POSITION_SYMBOL if self._input.LA(1) else self.IDENTIFIER
+
