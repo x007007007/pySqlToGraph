@@ -983,3 +983,14 @@ SINGLE_QUOTED_TEXT: (
         SINGLE_QUOTE (({not status.isSqlModeActive(status.NoBackslashEscapes)}? '\\')? .)*? SINGLE_QUOTE
     )+
 ;
+
+
+OUTFILEMODE_SYMBOL:              O U T F I L E M O D E                       {status.support_gbase}?;  // gbase
+MAX_DATA_PROCESSORS_SYMBOL:      M A X '_' D A T A '_' P R O C E S S O R S   {status.support_gbase}?;  // gbase
+MAX_BAD_RECORDS_SYMBOL:          M A X '_' B A D '_' R E C O R D S           {status.support_gbase}?;  //  max_bad_records
+MIN_CHUNK_SIZE_SYMBOL:           M I N '_' C H U N K '_' S I Z E             {status.support_gbase}?;
+SKIP_BAD_FILE_SYMBOL:            S K I P '_' B A D '_' F I L E               {status.support_gbase}?;
+FILE_FORMAT_SYMBOL:              F I L E '_' F O R M A T                     {status.support_gbase}?;
+PARALLEL_SYMBOL:                 P A R A L L E L                             {status.support_gbase}?;
+NOSPLIT_SYMBOL:                  N O S P L I T                               {status.support_gbase}?;
+TRACE_SYMBOL:                    T R A C E                                   {status.support_gbase}?;

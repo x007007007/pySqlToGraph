@@ -14,7 +14,7 @@ mergeIntoStatement:
     // mergeHint?
     INTO_SYMBOL
     tableReference
-    USING_SYMBOL tableReference ON_SYMBOL exprListWithParentheses
+    USING_SYMBOL tableReference ON_SYMBOL (exprListWithParentheses | expr)
     mergeUpdateClause? mergeInsertClause?
     // oraleErrorLoggingClause?
 ;

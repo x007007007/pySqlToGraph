@@ -19,6 +19,7 @@ pureIdentifier:
 identifier:
     pureIdentifier
     | identifierKeyword
+    | gbaseKeyword
 ;
 
 identifierList: // ident_string_list in sql_yacc.yy.
@@ -1209,4 +1210,19 @@ roleOrLabelKeyword:
         | WITHOUT_SYMBOL
     )
     | {status.serverVersion >= 80014}? ADMIN_SYMBOL
+;
+
+
+
+gbaseKeyword:
+      CUME_DIST_SYMBOL              // gbase
+    | VAR_POP_SYMBOL
+    | SUM_SYMBOL                    //gbase
+    | RANK_SYMBOL
+    | LEAD_SYMBOL
+    | FIRST_VALUE_SYMBOL            // gbase
+    | NTILE_SYMBOL                  // gbase
+    | COUNT_SYMBOL
+    | CUBE_SYMBOL
+    | DENSE_RANK_SYMBOL
 ;
