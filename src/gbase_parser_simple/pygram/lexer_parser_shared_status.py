@@ -12,6 +12,7 @@ class BridgeOfLexerAndParserStatus:
     serverVersion = 99999
     _sqlMode = NoMode
     _inVersionComment = False
+    support_gbase = True
 
     def __init__(self):
         self._sqlMode = self.AnsiQuotes | self.PipesAsConcat | self.HighNotPrecedence
