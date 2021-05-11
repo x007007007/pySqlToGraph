@@ -399,8 +399,8 @@ identifierKeywordsUnambiguous:
         | CURSOR_NAME_SYMBOL
         | DATAFILE_SYMBOL
         | DATA_SYMBOL
-        | DATETIME_SYMBOL
-        | DATE_SYMBOL
+        | DATE_ADD_SYMBOL
+        | DATE_SUB_SYMBOL
         | DAY_SYMBOL
         | DEFAULT_AUTH_SYMBOL
         | DEFINER_SYMBOL
