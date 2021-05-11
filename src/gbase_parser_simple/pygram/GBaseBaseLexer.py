@@ -222,3 +222,14 @@ class GBaseBaseLexer(Lexer):
 
         return POSITION_SYMBOL if self._input.LA(1) else self.IDENTIFIER
 
+
+    def checkCharset(self, text):
+        """
+        size_t MySQLBaseLexer::checkCharset(const std::string &text) {
+          return charsets.count(text) > 0 ? MySQLLexer::UNDERSCORE_CHARSET : MySQLLexer::IDENTIFIER;
+        }
+
+        :return:
+        """
+
+        return self.UNDERSCORE_CHARSET if len(text) > 0 else self.IDENTIFIER
