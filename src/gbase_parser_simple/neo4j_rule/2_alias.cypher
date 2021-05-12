@@ -20,3 +20,5 @@ FOREACH (n IN nodes(p) | SET n.shortcut = true)
 set start.shortcut = false
 set finish.shortcut = false
 ;
+
+

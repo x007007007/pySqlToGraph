@@ -119,7 +119,7 @@ if __name__ == "__main__":
     import glob, os
 
     db = DatabaseExample("neo4j://localhost:7687", "neo4j", "123456")
-    # db.clean()
+    db.clean()
 
     for pth in glob.glob("/home/xxc-dev-machine/workspace/bocwm/pySqlToGraph/test/gbase_sql/test_sql/*.sql"):
         with open(pth, "rb") as fp:

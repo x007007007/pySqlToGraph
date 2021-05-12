@@ -1,3 +1,3 @@
 MATCH (i)
-  WHERE exists(i.shortcut) and i.shortcut = true
-detach delete;
+  WHERE exists(i.shortcut) and i.delete = true
+  detach delete;
