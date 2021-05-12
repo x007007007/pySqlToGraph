@@ -19,7 +19,7 @@ pureIdentifier:
 identifier:
     pureIdentifier
     | identifierKeyword
-    | gbaseKeyword
+//    | gbaseKeyword
 ;
 
 identifierList: // ident_string_list in sql_yacc.yy.

@@ -825,24 +825,38 @@ BUCKETS_SYMBOL:                  B U C K E T S                               {st
 REMOTE_SYMBOL:                   R E M O T E                                 {status.serverVersion >= 80003 and status.serverVersion < 80014}?; // MYSQL
 CLONE_SYMBOL:                    C L O N E                                   {status.serverVersion >= 80000}?; // MYSQL
 CUME_DIST_SYMBOL:                C U M E '_' D I S T                         {status.serverVersion >= 80000}?; // SQL-2003-R
-DENSE_RANK_SYMBOL:               D E N S E '_' R A N K                       {status.serverVersion >= 80000}?; // SQL-2003-R
+DENSE_RANK_SYMBOL:               D E N S E '_' R A N K                       {status.serverVersion >= 80000}?
+{self.type = self.determineFunction(status, self.DENSE_RANK_SYMBOL) }
+
+; // SQL-2003-R
 EXCLUDE_SYMBOL:                  E X C L U D E                               {status.serverVersion >= 80000}?; // SQL-2003-N
-FIRST_VALUE_SYMBOL:              F I R S T '_' V A L U E                     {status.serverVersion >= 80000}?; // SQL-2011-R
+FIRST_VALUE_SYMBOL:              F I R S T '_' V A L U E                     {status.serverVersion >= 80000}?
+{self.type = self.determineFunction(status, self.FIRST_VALUE_SYMBOL) }; // SQL-2011-R
 FOLLOWING_SYMBOL:                F O L L O W I N G                           {status.serverVersion >= 80000}?; // SQL-2003-N
 GROUPS_SYMBOL:                   G R O U P S                                 {status.serverVersion >= 80000}?; // SQL-2011-R
 LAG_SYMBOL:                      L A G                                       {status.serverVersion >= 80000}?; // SQL-2011-R
-LAST_VALUE_SYMBOL:               L A S T '_' V A L U E                       {status.serverVersion >= 80000}?; // SQL-2011-R
+LAST_VALUE_SYMBOL:               L A S T '_' V A L U E                       {status.serverVersion >= 80000}?
+{self.type = self.determineFunction(status, self.LAST_VALUE_SYMBOL) }
+; // SQL-2011-R
 LEAD_SYMBOL:                     L E A D                                     {status.serverVersion >= 80000}?; // SQL-2011-R
-NTH_VALUE_SYMBOL:                N T H '_' V A L U E                         {status.serverVersion >= 80000}?; // SQL-2011-R
-NTILE_SYMBOL:                    N T I L E                                   {status.serverVersion >= 80000}?; // SQL-2011-R
+NTH_VALUE_SYMBOL:                N T H '_' V A L U E                         {status.serverVersion >= 80000}?
+                                                                            {self.type = self.determineFunction(status, self.NTH_VALUE_SYMBOL) }
+; // SQL-2011-R
+NTILE_SYMBOL:                    N T I L E                                   {status.serverVersion >= 80000}?
+{self.type = self.determineFunction(status, self.NTILE_SYMBOL) }
+; // SQL-2011-R
 NULLS_SYMBOL:                    N U L L S                                   {status.serverVersion >= 80000}?; // SQL-2003-N
 OTHERS_SYMBOL:                   O T H E R S                                 {status.serverVersion >= 80000}?; // SQL-2003-N
 OVER_SYMBOL:                     O V E R                                     {status.serverVersion >= 80000}?; // SQL-2003-R
 PERCENT_RANK_SYMBOL:             P E R C E N T '_' R A N K                   {status.serverVersion >= 80000}?; // SQL-2003-R
 PRECEDING_SYMBOL:                P R E C E D I N G                           {status.serverVersion >= 80000}?; // SQL-2003-N
-RANK_SYMBOL:                     R A N K                                     {status.serverVersion >= 80000}?; // SQL-2003-R
+RANK_SYMBOL:                     R A N K                                     {status.serverVersion >= 80000}?
+{self.type = self.determineFunction(status, self.RANK_SYMBOL) }
+; // SQL-2003-R
 RESPECT_SYMBOL:                  R E S P E C T                               {status.serverVersion >= 80000}?; // SQL_2011-N
-ROW_NUMBER_SYMBOL:               R O W '_' N U M B E R                       {status.serverVersion >= 80000}?; // SQL-2003-R
+ROW_NUMBER_SYMBOL:               R O W '_' N U M B E R                       {status.serverVersion >= 80000}?
+{self.type = self.determineFunction(status, self.ROW_NUMBER_SYMBOL) }
+; // SQL-2003-R
 TIES_SYMBOL:                     T I E S                                     {status.serverVersion >= 80000}?; // SQL-2003-N
 UNBOUNDED_SYMBOL:                U N B O U N D E D                           {status.serverVersion >= 80000}?; // SQL-2003-N
 WINDOW_SYMBOL:                   W I N D O W                                 {status.serverVersion >= 80000}?; // SQL-2003-R

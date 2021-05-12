@@ -194,7 +194,7 @@ class GBaseBaseLexer(Lexer):
             else:
                 return bigger
 
-    def determineFunction(self, status: BridgeOfLexerAndParserStatus, POSITION_SYMBOL):
+    def determineFunction(self, status: BridgeOfLexerAndParserStatus, proposed):
         """
           // Skip any whitespace character if the sql mode says they should be ignored,
           // before actually trying to match the open parenthesis.
@@ -209,18 +209,29 @@ class GBaseBaseLexer(Lexer):
           }
 
           return _input->LA(1) == '(' ? proposed : MySQLLexer::IDENTIFIER;
+
+            # self._interp.consume(self._input)
+            # self._channel = self.HIDDEN
+            # self._type = self.WHITESPACE
         :return:
         """
         if status.isSqlModeActive(status.IgnoreSpace):
-            input = self._input.LA(1)
+            i = 1
+            chars = [ord(i) for i in r" \t\r\n"]
+            while True:
+                input = self._input.LA(i)
+                print(f"debug: input: {input}")
+                if input not in chars:
+                    break
+                i += 1
+                print(f"debug: input: {input}")
 
-            while input in r" \t\r\n":
-                self._interp.consume(self._input)
-                self._channel = self.HIDDEN
-                self._type = self.WHITESPACE
-                input = self._input.LA(1)
-
-        return POSITION_SYMBOL if self._input.LA(1) else self.IDENTIFIER
+        if self._input.LA(i) == ord('('):
+            print("proposed")
+            return proposed
+        else:
+            print("self.IDENTIFIER")
+            return self.IDENTIFIER
 
 
     def checkCharset(self, text):

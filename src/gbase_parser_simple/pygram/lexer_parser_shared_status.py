@@ -15,7 +15,7 @@ class BridgeOfLexerAndParserStatus:
     support_gbase = True
 
     def __init__(self):
-        self._sqlMode = self.AnsiQuotes | self.PipesAsConcat | self.HighNotPrecedence
+        self._sqlMode = self.AnsiQuotes | self.PipesAsConcat | self.HighNotPrecedence |self.IgnoreSpace
 
     @property
     def sqlMode(self):
