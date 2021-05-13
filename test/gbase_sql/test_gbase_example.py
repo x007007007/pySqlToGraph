@@ -438,12 +438,13 @@ from gbase_parser_simple.test_help import read_sql
      "show variables like '%time_zone%';",
      "set time_zone='SYSTEM';",
      "show variables like '%zone%';",
-     "\\! date\nMon Jan 22 19:22:09 PST 2018\ngbase> select now();",
-     "\\! date -u +%s\n1516677890\ngbase> select from_unixtime(1516677890);",
-     "\\! date\nMon Jan 22 19:25:10 PST 2018  \uf06c  \u5728\u590f\u4ee4\u65f6\u5185\uff0c\u7cfb\u7edf\u65f6\u95f4\u8ddf gbase \u5185\u65f6\u95f4\u4e00\u81f4\u3002    ; set time_zone='SYSTEM';",
+     "\\! date -u +%s 1516677890",
+     "select from_unixtime(1516677890);",
+     "set time_zone='SYSTEM';",
      "show variables like '%zone%';",
-     "\\! date '+%Y-%m-%d %H:%M:%S'\n2017-03-11 05:06:06  - 170 -  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c\ngbase> select now();",
-     "\\! date -u +%s\n1489237617\ngbase> select from_unixtime(1489237617);",
+     "\\! date '+%Y-%m-%d %H:%M:%S'",
+     "select now();",
+     "select from_unixtime(1489237617);",
      "SELECT ADDDATE('2010-01-02', INTERVAL 31 DAY) FROM t;",
      "SELECT ADDDATE('2010-01-02', 31 ) FROM t;",
      "SELECT ADDTIME('2010-01-02 23:59:59.999999','1 1:1:1.000002') FROM t;",
@@ -601,10 +602,10 @@ from gbase_parser_simple.test_help import read_sql
      "SELECT TO_DATE('2011-11-15 8:15:20 PM','YYYY-MM-DD HH:MI:SS PM') FROM\nt;",
      "SELECT TO_DATE('2011-11-15 8:15:20 AM','YYYY-MM-DD HH:MI:SS PM') FROM\nt;",
      "SELECT TO_DATE('2011-11-15 8:15:20PM','YYYY-MM-DD HH:MI:SS AM') FROM\nt;",
-     "SELECT NOW(),TO_DATE(TO_CHAR(NOW(),'YYYY-MM-DD HH:MI:SS'),'YYYY-MM-DD\nHH:MI:SS') AS f_format FROM t;",
-     "SELECT NOW(),TO_DATE(TO_CHAR(NOW(),'YYYY-MM-DD HH:SS'),'YYYY-MM-DD\nHH:SS') AS f_format FROM t;",
-     "SELECT NOW(),TO_DATE(TO_CHAR(NOW(),'YYYY-MM-DD HH:MI:SS'),'YYYY-MM-DD\n\u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  - 229 -  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c\nHH:MI:SS') AS f_format FROM t;",
-     "SELECT NOW(),TO_DATE(TO_CHAR(NOW(),'YYYY-MM-DD HH:MI'),'YYYY-MM-DD\nHH:MI') AS f_format FROM t;",
+     "SELECT NOW(),TO_DATE(TO_CHAR(NOW(),'YYYY-MM-DD HH:MI:SS'),'YYYY-MM-DD HH:MI:SS') AS f_format FROM t;",
+     "SELECT NOW(),TO_DATE(TO_CHAR(NOW(),'YYYY-MM-DD HH:SS'),'YYYY-MM-DD HH:SS') AS f_format FROM t;",
+     "SELECT NOW(),TO_DATE(TO_CHAR(NOW(),'YYYY-MM-DD HH:MI:SS'),'YYYY-MM-DD HH:MI:SS') AS f_format FROM t;",
+     "SELECT NOW(),TO_DATE(TO_CHAR(NOW(),'YYYY-MM-DD HH:MI'),'YYYY-MM-DD HH:MI') AS f_format FROM t;",
      "SELECT TO_DAYS(950501) FROM t;",
      "SELECT TO_DAYS('2010-08-30') FROM t;",
      "SELECT TO_DAYS('2011-08-30'), TO_DAYS('11-08-30') FROM t;",
@@ -732,7 +733,7 @@ from gbase_parser_simple.test_help import read_sql
      # "select *, ntile('2') over (partition by uname order by dt) as ntile from\ntt;",
      # "select *, ntile(2.1) over (partition by uname order by dt) as ntile from\ntt;",
      # "select *, first_value(totalamount) over (partition by uname order by\ndt) as first_value from tt;",
-     # "select *, first_value('const') over (partition by uname order by dt)  - 298 -  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c\nas first_value from tt;",
+     # "select *, first_value('const') over (partition by uname order by dt) as first_value from tt;",
      # "select *, first_value(NULL) over (partition by uname order by dt) as\nfirst_value from tt;",
      # "select *, last_value(totalamount) over (partition by uname order by dt)\nas last_value from tt;",
      # "select *, last_value('const') over (partition by uname order by dt) as\nlast_value from tt;",
@@ -883,7 +884,7 @@ from gbase_parser_simple.test_help import read_sql
      # "CREATE INDEX idx2 on t1(b) USING HASH GLOBAL;",
      # "CREATE INDEX idx3 on t1(b) key_block_size=16384 USING HASH GLOBAL;",
      # "CREATE INDEX idx4 on t1(b) key_dc_size=50 USING HASH GLOBAL;",
-     "ALTER TABLE t ADD INDEX h2(a) key_dc_size=1 key_block_size=4096 USING\n- 348 -  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c\nHASH;",
+     "ALTER TABLE t ADD INDEX h2(a) key_dc_size=1 key_block_size=4096 USING HASH;",
      "DROP INDEX pt ON t;",
      "SHOW INDEX FROM test.tx1;",
      # "CREATE TABLE t(nameid int, name varchar(50)) AUTOEXTEND ON NEXT 1M;",
@@ -1001,12 +1002,12 @@ from gbase_parser_simple.test_help import read_sql
      "SELECT stu_no, stu_sex,SUM(stu_sex) FROM student GROUP BY stu_no;",
      "SELECT CASE stu_sex WHEN 0 THEN '\u7537' ELSE '\u5973' END AS\nstu_sexname,COUNT(stu_sex) AS stu_count FROM student GROUP BY stu_sex;",
      "SELECT a.stu_name,math,english,sum(math+english) AS total FROM student\na INNER JOIN result b ON a.stu_no = b.stu_no GROUP BY a.stu_no ORDER BY a.stu_no;",
-     "SELECT a.stu_name,math,english,SUM(math+english) AS total FROM student\n- 388 -  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c\na INNER JOIN result b ON a.stu_no = b.stu_no GROUP BY a.stu_no HAVING total >\n180 ORDER BY total DESC;",
+     "SELECT a.stu_name,math,english,SUM(math+english) AS total FROM student a INNER JOIN result b ON a.stu_no = b.stu_no GROUP BY a.stu_no HAVING total > 180 ORDER BY total DESC;",
      "SELECT a.stu_name,math,english,sum(math+english) AS total FROM student\na INNER JOIN result b ON a.stu_no = b.stu_no GROUP BY a.stu_no ORDER BY a.stu_no;",
      "SELECT SUM(lo_quantity),lo_orderkey FROM ssbm.lineorder GROUP BY\nlo_orderkey ORDER BY lo_orderkey  LIMIT 10;",
      "SELECT * FROM t1 LIMIT 10;",
      "SELECT * FROM t1 LIMIT 3 OFFSET 2;",
-     "select * from (select * from r1 start with id2 = 2 connect by prior id2\n= id2) x;",
+     "select * from (select * from r1 start with id2 = 2 connect by prior id2 = id2) x; ",
      "SELECT level, t1.* FROM t1 CONNECT BY PRIOR b = level START WITH a = 0;",
      "SELECT /*+ first_rows(5) */ t1.a FROM t1 LIMIT 10;",
      "SELECT t1.c_name,t2.lo_orderkey FROM ssbm.customer AS\nt1,ssbm.lineorder AS t2 WHERE t1.c_custkey = t2.lo_custkey LIMIT 5;",
@@ -1023,7 +1024,7 @@ from gbase_parser_simple.test_help import read_sql
      "CREATE TABLE student (stu_no int, stu_name varchar(200),stu_sex int);",
      "INSERT INTO student VALUES(4,'King',1),(5,'Smith',1);",
      "SELECT stu_name FROM student WHERE stu_name LIKE 'S%'\nUNION\nSELECT stu_name FROM student WHERE stu_name LIKE '%K%'\nORDER BY stu_name LIMIT 10;",
-     "(SELECT c_name FROM ssbm.customer WHERE c_name LIKE '%00002%' ORDER BY\nc_name LIMIT 10)  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  - 409 -  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c\nUNION\n(SELECT c_name FROM ssbm.customer WHERE c_name LIKE '%00003%'ORDER BY\nc_name LIMIT 10);",
+     "(SELECT c_name FROM ssbm.customer WHERE c_name LIKE '%00002%' ORDER BY\nc_name LIMIT 10) UNION\n(SELECT c_name FROM ssbm.customer WHERE c_name LIKE '%00003%'ORDER BY\nc_name LIMIT 10);",
      "SELECT REPEAT('a',1) UNION SELECT REPEAT('b',10);",
      "SELECT c_custkey FROM ssbm.customer UNION SELECT c_name FROM\nssbm.customer LIMIT 1;",
      "CREATE TABLE t_student (sno int, sname varchar(100),sdate datetime);",
@@ -1071,7 +1072,7 @@ from gbase_parser_simple.test_help import read_sql
      "SELECT * FROM t7 INTO OUTFILE '/home/gbase/t7.txt' FIELDS TERMINATED\nBY ',';",
      "SELECT * FROM gs INTO OUTFILE '/home/gbase/temp/gs_b.txt' FIELDS\nENCLOSED BY '@';",
      "SELECT * FROM gs INTO OUTFILE '/home/gbase/temp/gs_c.txt' FIELDS\nENCLOSED BY '\"';",
-     "SELECT * FROM gs INTO OUTFILE '/home/gbase/temp/gs_d.txt' FIELDS\n\u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  - 441 -  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c\nOPTIONALLY ENCLOSED BY '\"';",
+     "SELECT * FROM gs INTO OUTFILE '/home/gbase/temp/gs_d.txt' FIELDS OPTIONALLY ENCLOSED BY '\"';",
      "SELECT * FROM gs INTO OUTFILE '/home/gbase/temp/gs_e.txt' FIELDS ESCAPED\nBY 'c';",
      "SELECT * FROM gs INTO OUTFILE '/home/gbase/temp/gs_e.txt' FIELDS ESCAPED\nBY '6c@#';",
      "SELECT * FROM gs INTO OUTFILE '/home/gbase/temp/gs_f.txt' LINES\nTERMINATED BY '@#$';",
@@ -1124,7 +1125,7 @@ from gbase_parser_simple.test_help import read_sql
      "LOAD DATA INFILE 'fdp://hadoop@192.168.10.1:50070/data/test.tbl' INTO TABLE test.t;",
      "LOAD DATA INFILE 'ftp://192.168.0.1/pub/lineitem.tbl\uff0c\nhttp://192.168.0.2/lineitem.tbl' INTO TABLE test.lineitem FIELDS\nTERMINATED BY '|' ENCLOSED BY '\"' LINES TERMINATED  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  BY '\\n';",
      "LOAD DATA INFILE 'ftp://192.168.10.114/data/*' INTO TABLE test.t;",
-     "LOAD DATA INFILE 'ftp://192.168.0.1/pub/lineitem.tbl' INTO TABLE\n- 484 -  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c  test.lineitem FIELDS TERMINATED BY '|' ENCLOSED BY '\"' LINES TERMINATED\nBY '\\n';",
+     "LOAD DATA INFILE 'ftp://192.168.0.1/pub/lineitem.tbl' INTO TABLE test.lineitem FIELDS TERMINATED BY '|' ENCLOSED BY '\"' LINES TERMINATED\nBY '\\n';",
      "LOAD DATA INFILE 'http://10.10.120.226/timestamp.txt' INTO TABLE\ntest.ttimestamp DATA_FORMAT 3 FIELDS TERMINATED BY '|' TIMESTAMP FORMAT\n'%Y-%m-%d %H:%i:%s';",
      "load data infile 'ftp://192.168.88.141/load_data/table_fields.tbl' into table test.t\nfields terminated by ',' table_fields 'i, vc, dt date \"%H:%i:%s %Y-%m-%d\",\ndt1 date \"%Y-%m-%d %H:%i:%s\"';",
      "select * from test.t;",
@@ -1169,14 +1170,12 @@ from gbase_parser_simple.test_help import read_sql
      "SHOW VARIABLES LIKE '%trace%';",
      "SET GLOBAL gbase_sql_trace =on;",
      "SHOW VARIABLES LIKE '%gbase_sql_trace%';",
-     "QUIT\nBye  # gccli -uroot -p\nEnter password:  GBase client 8.5.1.2 build 26867. Copyright (c) 2004-2013, GBase. All Rights\nReserved.  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  - 509 -  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c\ngbase> SHOW VARIABLES LIKE '%trace%';",
+     "QUIT",
      "SET  global gbase_high_priority_weight = 80;",
      "CREATE USER admin IDENTIFIED BY 'admin';",
-     "EXIT\nBye  $ gccli -uadmin \u2013p\nEnter password:\nGBase client 8.5.1.2 build 25847. Copyright (c) 2004-2013, GBase. All Rights\nReserved.\ngbase>  4.6.1.2  DROP USER  \u8bed\u6cd5\u683c\u5f0f\uff1a\nDROP USER user;",
      # "DROP USER admin;",
      "SET PASSWORD = PASSWORD('admin');",
-     "EXIT\nBye  \u4f7f\u7528\u65b0\u5bc6\u7801\u91cd\u65b0\u767b\u5f55\u6570\u636e\u5e93\uff1a\n$ gccli -uroot -p\nEnter password:  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  - 513 -  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c  GBase client 8.5.1.2 build 25847. Copyright (c) 2004-2013, GBase. All Rights\nReserved.  \u793a\u4f8b 2\uff1aSET PASSWORD FOR\uff0c\u4e3a\u6307\u5b9a\u7684\u767b\u5f55\u96c6\u7fa4\u7684\u7528\u6237\u8bbe\u7f6e\u5bc6\u7801\u3002\n$ gccli -uroot --nice_time_format -p\nEnter password:  GBase client 8.5.1.2 build 25847. Copyright (c) 2004-2013, GBase. All Rights\nReserved.  gbase> SET PASSWORD FOR admin = PASSWORD('adminnew');",
-     "EXIT\nBye  $ gccli -uadmin --nice_time_format -p\nEnter password:  GBase client 8.5.1.2 build 25847. Copyright (c) 2004-2013, GBase. All Rights\nReserved.  4.6.2 \u6743\u9650\u7ba1\u7406\n4.6.2.1  GRANT\u548cREVOKE  \u8bed\u6cd5\u683c\u5f0f\uff1a\nGRANT\npriv_type [(column_list)]\n[, priv_type [(column_list)]] ...  - 514 -  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c  ON [object_type] priv_level\nTO user IDENTIFIED BY [[PASSWORD] [password]]\n[WITH with_option ...]  object_type:\nTABLE  | FUNCTION  | PROCEDURE  priv_level:\n*  | *.*  | table_name  | database_name.*  | database_name.table_name  | database_name.routine_name  REVOKE\npriv_type [(column_list)]\n[, priv_type [(column_list)]] ...\nON [object_type] priv_level\nFROM user  REVOKE ALL PRIVILEGES, GRANT OPTION\nFROM user  4.6.2.2  \u6743\u9650\u7ea7\u522b  GRANT \u548c REVOKE \u8bed\u53e5\u5141\u8bb8\u7cfb\u7edf\u7ba1\u7406\u5458\u5904\u7406\u7528\u6237\u6743\u9650\u7684\u8d4b\u4e88\u4e0e\u6536\u56de\u3002\n\u5bf9\u4e8e GRANT \u548c REVOKE \u4e2d\u7684\u6743\u9650\u7ea7\u522b\uff0cpriv_type \u6307\u5b9a\u4e3a\u4e0b\u5217\u4efb\u4e00\u79cd\u3002\n\u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  - 515 -  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c  \u6743  \u9650  \u610f  \u4e49  ALL [PRIVILEGES]  \u8bbe\u7f6e\u9664GRANT OPTION\u4e4b\u5916\u7684\u6240\u6709\u7b80\u5355\u6743\u9650  ALTER  \u5141\u8bb8\u4f7f\u7528ALTER TABLE  ALTER ROUTINE  \u66f4\u6539\u6216\u53d6\u6d88\u5df2\u5b58\u50a8\u7684\u5b50\u7a0b\u5e8f  CREATE  \u5141\u8bb8\u4f7f\u7528CREATE TABLE  CREATE ROUTINE  \u521b\u5efa\u5df2\u5b58\u50a8\u7684\u5b50\u7a0b\u5e8f  CREATE TEMPORARY\nTABLES  \u5141\u8bb8\u4f7f\u7528CREATE TEMPORARY TABLE  CREATE USER  \u5141\u8bb8\u4f7f\u7528CREATE USER, DROP USER, RENAME USER\u548c\nREVOKE ALL PRIVILEGES  CREATE VIEW  \u5141\u8bb8\u4f7f\u7528CREATE VIEW  DELETE  \u5141\u8bb8\u4f7f\u7528DELETE  DROP  \u5141\u8bb8\u4f7f\u7528DROP TABLE  EXECUTE  \u5141\u8bb8\u7528\u6237\u8fd0\u884c\u5df2\u5b58\u50a8\u7684\u5b50\u7a0b\u5e8f  FILE  \u5141\u8bb8\u4f7f\u7528SELECT...FROM TABLE_NAME INTO OUTFILE\n\u7b49  GRANT OPTION  \u5141\u8bb8\u6388\u4e88\u6743\u9650  INDEX  \u5141\u8bb8\u4f7f\u7528CREATE INDEX\u548cDROP INDEX  INSERT  \u5141\u8bb8\u4f7f\u7528INSERT  PROCESS  \u5141\u8bb8\u4f7f\u7528SHOW FULL PROCESSLIST  RELOAD  \u5141\u8bb8\u4f7f\u7528FLUSH  SELECT  \u5141\u8bb8\u4f7f\u7528SELECT  SHOW DATABASES  SHOW DATABASES\u663e\u793a\u6240\u6709\u6570\u636e\u5e93  SHOW VIEW  \u5141\u8bb8\u4f7f\u7528SHOW CREATE VIEW  SHUTDOWN  \u5141\u8bb8\u4f7f\u7528gbaseadmin shutdown  SUPPER  \u5141\u8bb8\u4f7f\u7528KILL\u548cSET GLOBAL\u8bed\u53e5  UPDATE  \u5141\u8bb8\u4f7f\u7528UPDATE  USAGE  \u4ec5\u4ec5\u7528\u4e8e\u8fde\u63a5\u767b\u5f55\u6570\u636e\u5e93\uff0c\u4e3b\u8981\u7528\u6765\u8bbe\u7f6ewith\noption\u90e8\u5206  EVENT  \u521b\u5efa\u3001\u4fee\u6539\u3001\u5220\u9664EVENT\u7684\u6743\u9650  \u8bf4\u660e\uff1a\n\u6570\u636e\u5e93\u6743\u9650\u5206\u4e3a\u6570\u636e\u5e93\u5bf9\u8c61\u64cd\u4f5c\u6743\u9650\u7b49\u4ee5\u4e0b 5 \u7c7b\uff1a\n\u6570\u636e\u5e93\u5bf9\u8c61\u64cd\u4f5c\u7c7b\u6743\u9650\uff1b\n- 516 -  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c  \u6570\u636e\u64cd\u4f5c\u7c7b\u6743\u9650\uff1b\n\u5b58\u50a8\u8fc7\u7a0b\u3001\u81ea\u5b9a\u4e49\u51fd\u6570\u6267\u884c\u6743\u9650\uff1b\n\u6570\u636e\u67e5\u770b\u7c7b\u6743\u9650\uff1b\n\u6570\u636e\u5e93\u6743\u9650\uff08\u5305\u542b\u7528\u6237\u7ba1\u7406\uff09\u7ba1\u7406\u6743\u9650\u3002\n\u8868\u683c\u4e2d\u7684\u201aALL\u201b\u662f\u4e2a\u7279\u6b8a\u6743\u9650\u4e0d\u5728\u4e0a\u8ff0\u5206\u7c7b\u4e2d\uff0c\u5b83\u662f\u628a GRANT OPTION\n\u4e4b\u5916\u7684\u6240\u6709\u6743\u9650\u8d4b\u4e88\u6307\u5b9a\u7528\u6237\u3002\n\u8981\u4f7f\u7528 GRANT \u6216 REVOKE\uff0c\u5fc5\u987b\u62e5\u6709 GRANT OPTION \u6743\u9650\uff0c\u5e76\u4e14\u62e5\u6709\u6388\u4e88\n\u6216\u6536\u56de\u6743\u9650\u3002\n\u5bf9\u4e8e GRANT \u548c REVOKE \u8bed\u53e5\uff0cpriv_level \u53ef\u4ee5\u6388\u4e88\u4e0d\u540c\u7ea7\u522b\u7684\u6743\u9650\uff1a\n\u5168\u5c40\u7ea7\uff08Global level\uff09\n\u5168\u5c40\u6743\u9650\u5e94\u7528\u5230\u7ed9\u5b9a\u670d\u52a1\u5668\u7684\u6240\u6709\u6570\u636e\u5e93\u4e0a\u3002\u8fd9\u4e9b\u6743\u9650\u5b58\u50a8\u5728\ngbase.user \u8868\u4e2d\u3002\u53ea\u53ef\u4ee5\u901a\u8fc7 GRANT ALL ON *.*\u548c REVOKE ALL ON *.*\u6388\u4e88\n\u548c\u6536\u56de\u5168\u5c40\u6743\u9650\u3002\n\u6570\u636e\u5e93\u7ea7\uff08Database level\uff09\n\u6570\u636e\u5e93\u6743\u9650\u5e94\u7528\u4e8e\u7ed9\u5b9a\u6570\u636e\u5e93\u7684\u6240\u6709\u5bf9\u8c61\u4e0a\u3002\u8fd9\u4e9b\u6743\u9650\u5b58\u50a8\u5728 gbase.db\n\u548c gbase.host \u8868\u4e2d\u3002\u53ea\u53ef\u4ee5\u901a\u8fc7 GRANT ALL ON db_name.*\u548c REVOKE ALL ON\ndb_name.*\u6388\u4e88\u548c\u6536\u56de\u6570\u636e\u5e93\u6743\u9650\u3002\n\u8868\u7ea7\uff08Table level\uff09\n\u8868\u6743\u9650\u5e94\u7528\u4e8e\u7ed9\u5b9a\u8868\u7684\u6240\u6709\u5217\u3002\u8fd9\u4e9b\u6743\u9650\u5b58\u50a8\u5728 gbase.tables_priv \u8868\n\u4e2d\u3002\u53ea\u53ef\u4ee5\u901a\u8fc7 GRANT ALL ON db_name.tbl_name \u548c REVOKE ALL ON\ndb_name.tbl_name \u6388\u4e88\u548c\u6536\u56de\u8868\u6743\u9650\u3002\n\u5217\u7ea7\uff08column level\uff09\n\u5217\u6743\u9650\u5e94\u7528\u4e8e\u8868\u4e2d\u7684\u6307\u5b9a\u5217\u3002\u8fd9\u4e9b\u6743\u9650\u5b58\u50a8\u5728 gbase.tables_priv \u8868\u4e2d\u3002\n\u53ea\u53ef\u4ee5\u901a\u8fc7 GRANT SELECT,INSERT,UPDATE\uff08column\uff09 ON db_name.tb1_name\n\u548c REVOKE SELECT\uff08column\uff09 ON db_name.tb1_name \u6388\u4e88\u548c\u6536\u56de\u5217\u6743\u9650\u3002  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  - 517 -  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c  \u793a\u4f8b 1\uff1a\u4e3a t \u8868\u4e2d\u7684\u5217 a \u8d4b\u4e88 SELECT \u6743\u9650\u3002\ngbase> CREATE TABLE t(a int,b varchar(40));",
+
      "INSERT INTO t VALUES (1,'test'),(2,'share');",
      "GRANT SELECT(a) ON test.t TO admin;",
      "SELECT * FROM gbase.tables_priv;",
@@ -1234,7 +1233,7 @@ from gbase_parser_simple.test_help import read_sql
      "create synonym syn_syn_1 for syn_1;",
      "create synonym syn_2 for test.v1;",
      "create public synonym syn_3 for test.t1;",
-     "  CREATE FUNCTION f_add(i int,j int) RETURNS int\n-> BEGIN\n->  RETURN i+j;",
+     "CREATE FUNCTION f_add(i int,j int) RETURNS int  BEGIN   RETURN i+j; END",
      "create synonym syn_add for f_add;",
      "create synonym syn_proc for f_proc;",
      "drop synonym syn_1;",
@@ -1245,13 +1244,24 @@ from gbase_parser_simple.test_help import read_sql
      "select syn_add(1,2);",
      "call syn_proc();",
      "DELIMITER //\n",
-     "CREATE PROCEDURE proc_count (OUT param1 INT,IN param2 VARCHAR(10))\nBEGIN\nSELECT COUNT(*) INTO param1 FROM ssbm.customer WHERE c_nation= param2;",
+     """
+          CREATE PROCEDURE proc_count (OUT param1 INT,IN param2 varchar(10)) 
+          BEGIN 
+          SELECT COUNT(*) INTO param1 FROM ssbm.customer WHERE c_nation= param2; 
+          END
+     """,
      "CALL proc_count(@count1,'JORDAN');",
      "SELECT @count1;",
-     "  CREATE FUNCTION hello (s CHAR(20)) RETURNS CHAR(50)\nRETURN CONCAT('Hello, ',s,'!');",
+     "CREATE FUNCTION hello (s CHAR(20)) RETURNS CHAR(50)\nRETURN CONCAT('Hello, ',s,'!');",
      "SET @result = hello('world');",
      "SELECT @result;",
-     "CREATE FUNCTION fn_count (param varchar(10)) RETURNS INT\nBEGIN\nSELECT COUNT(*)/5 INTO @count FROM ssbm.customer WHERE c_nation= param;",
+     """
+          CREATE FUNCTION fn_count (param varchar(10)) RETURNS INT 
+          BEGIN 
+          SELECT COUNT(*)/5 INTO @count FROM ssbm.customer WHERE c_nation= param; 
+          RETURN @count; 
+          END
+     """,
      "SET @result = fn_count('JORDAN');",
      "SELECT @result;",
      "ALTER PROCEDURE proc_count COMMENT 'new comment';",
@@ -1260,7 +1270,12 @@ from gbase_parser_simple.test_help import read_sql
      "DROP FUNCTION IF EXISTS fn_count;",
      "USE test;",
      "DROP PROCEDURE proc_count",
-     "CREATE PROCEDURE proc_count (OUT param1 INT,IN param2 varchar(10))\nBEGIN\nSELECT COUNT(*) INTO param1 FROM ssbm.customer WHERE c_nation= param2;",
+     """
+          CREATE PROCEDURE proc_count (OUT param1 INT,IN param2 VARCHAR(10)) 
+          BEGIN 
+          SELECT COUNT(*) INTO param1 FROM ssbm.customer WHERE c_nation= param2; 
+          END
+     """,
      "CALL proc_count(@count1, 'JORDAN')",
      "SELECT @count1 ;",
      "USE test;",
@@ -1275,45 +1290,152 @@ from gbase_parser_simple.test_help import read_sql
      "DROP PROCEDURE IF EXISTS curdemo   ; CREATE PROCEDURE curdemo()\nBEGIN\nDECLARE done INT DEFAULT 0;",
      "CALL curdemo;",
      "SELECT region,count FROM products;",
-     "  DROP PROCEDURE IF EXISTS dodeclare   ; CREATE PROCEDURE dodeclare (p1 INT)\nBEGIN\n- 568 -  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c\nDECLARE intX INT;",
-     "CALL dodeclare(1000);",
-     "  DROP PROCEDURE IF EXISTS doselect_into   ; CREATE PROCEDURE doselect_into (p1 INT)\nBEGIN\nDECLARE intX INT;",
-     "CALL doselect_into (1000);",
-     "  DROP FUNCTION IF EXISTS fn_count  ; CREATE FUNCTION fn_count (param VARCHAR(10)) RETURNS INT\nBEGIN\nSELECT COUNT(*)/3 INTO @count FROM ssbm.customer WHERE c_nation=\n'JORDAN';",
+     """
+          DROP PROCEDURE IF EXISTS dodeclare;
+          CREATE PROCEDURE dodeclare (p1 INT) 
+          BEGIN 
+          DECLARE intX INT; 
+          SET intX = 0; 
+          REPEAT SET intX = intX + 1; UNTIL intX > p1 END REPEAT; 
+          SELECT intX; 
+          END
+     """,
+     """  
+          DROP PROCEDURE IF EXISTS doselect_into;
+          CREATE PROCEDURE doselect_into (p1 INT) 
+          BEGIN 
+          DECLARE intX INT; 
+          SET intX = 0; 
+          REPEAT SET intX = intX + 1; UNTIL intX > p1 END REPEAT; 
+          SELECT intX INTO @intResult; 
+          SELECT @intResult; 
+          END
+          CALL doselect_into (1000);
+     """,
+     """
+          DROP FUNCTION IF EXISTS fn_count;
+          CREATE FUNCTION fn_count (param VARCHAR(10)) RETURNS INT 
+           BEGIN 
+           SELECT COUNT(*)/3 INTO @count FROM ssbm.customer WHERE c_nation= 
+          'JORDAN'; 
+           IF @count<=3 THEN 
+           RETURN @count; 
+           ELSE 
+           RETURN @count/3; 
+           END IF; 
+          END
+     """,
      "SET @result = fn_count ('JORDAN');",
      "SELECT @result;",
-     "  DROP PROCEDURE IF EXISTS doiterate   ; CREATE PROCEDURE doiterate(p1 INT)\nBEGIN\nlabel1: LOOP\nSET p1 = p1 + 1;",
-     "CALL doiterate(1);",
-     "SELECT @x;",
-     "  DROP PROCEDURE IF EXISTS casedemo  ; CREATE PROCEDURE casedemo()\n-> BEGIN\n-> SELECT DISTINCT CASE WHEN c_nation='CHINA' THEN '\u4e2d\u56fd' WHEN  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  - 573 -  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c\nc_nation='MOROCCO' THEN '\u6469\u6d1b\u54e5' WHEN c_nation='JORDAN' THEN '\u7ea6\u65e6' ELSE '\n\u5176\u5b83\u56fd\u5bb6' END \u4e2d\u6587\uff0cc_nation FROM ssbm.customer  LIMIT 10;",
-     "CALL casedemo();",
-     "  DROP PROCEDURE IF EXISTS casedemo2  ; CREATE PROCEDURE casedemo2()\nBEGIN\nSELECT DISTINCT CASE c_nation WHEN 'CHINA' THEN '\u4e2d\u56fd' WHEN 'MOROCCO' THEN\n'\u6469\u6d1b\u54e5' WHEN 'JORDAN' THEN '\u7ea6\u65e6' ELSE '\u5176\u5b83\u56fd\u5bb6' END \u4e2d\u6587\uff0cc_nation FROM\nssbm.customer LIMIT 10;",
+     """
+          DROP PROCEDURE IF EXISTS casedemo  ;
+          CREATE PROCEDURE casedemo() 
+          BEGIN 
+          SELECT DISTINCT CASE WHEN c_nation='CHINA' THEN '中国' WHEN
+          c_nation='MOROCCO' THEN '摩洛哥' WHEN c_nation='JORDAN' THEN '约旦' ELSE '
+          其它国家' END 中文，c_nation FROM ssbm.customer LIMIT 10; 
+          END;
+          CALL casedemo();
+     """,
+     """
+          DROP PROCEDURE IF EXISTS casedemo2  ;
+          CREATE PROCEDURE casedemo2() 
+          BEGIN 
+               SELECT DISTINCT CASE c_nation WHEN 'CHINA' THEN '中国' WHEN 'MOROCCO' THEN 
+               '摩洛哥' WHEN 'JORDAN' THEN '约旦' ELSE '其它国家' END 中文，c_nation FROM 
+               ssbm.customer LIMIT 10; 
+          END
+     """,
      "CALL casedemo2();",
-     "  DROP PROCEDURE IF EXISTS doiterate  ; CREATE PROCEDURE doiterate(p1 INT)\nBEGIN\nlabel1: LOOP\nSET p1 = p1 + 1;",
-     "CALL doiterate(1);",
-     "SELECT @x;",
-     "  DROP PROCEDURE IF EXISTS dorepeat  ; CREATE PROCEDURE dorepeat(p1 INT)\nBEGIN\nSET @x = 0;",
+     """
+          DROP PROCEDURE IF EXISTS doiterate  ; 
+          CREATE PROCEDURE doiterate(p1 INT) 
+          BEGIN 
+               label1: LOOP 
+               SET p1 = p1 + 1; 
+               IF p1 < 10 THEN ITERATE label1; END IF; 
+               LEAVE label1; 
+               END LOOP label1; 
+               SET @x = p1; 
+          END
+     """,
+     """  
+          DROP PROCEDURE IF EXISTS dorepeat ; 
+          CREATE PROCEDURE dorepeat(p1 INT) 
+          BEGIN 
+               SET @x = 0; 
+               REPEAT SET @x = @x + 1; UNTIL @x > p1 END REPEAT; 
+          END
+     """,
      "CALL dorepeat(1000);",
-     "SELECT @x;",
-     "  DROP PROCEDURE IF EXISTS doWhile  ; CREATE PROCEDURE doWhile(p1 INT)\nBEGIN\nSET @x = 0;",
-     "CALL dowhile(1000);",
-     "SELECT @x;",
-     "  DROP PROCEDURE IF EXISTS doiterate   ; CREATE PROCEDURE doiterate(p1 INT)\nBEGIN\nlabel1: LOOP\nSET p1 = p1 + 1;",
-     "CALL doiterate(1);",
-     "SELECT @x;",
-     "  DROP PROCEDURE IF EXISTS curdemo   ; CREATE PROCEDURE curdemo()\nBEGIN\nDECLARE done INT DEFAULT 0;",
-     "CALL curdemo;",
      "SELECT region,count FROM products;",
-     "  DROP PROCEDURE IF EXISTS docursor   ; CREATE PROCEDURE docursor()\n- 584 -  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c\nBEGIN\nDECLARE s_region VARCHAR(40);",
-     "CALL docursor();",
-     "  DROP PROCEDURE IF EXISTS docursor   ; CREATE PROCEDURE docursor()\nBEGIN\nDECLARE s_region VARCHAR(40);",
-     "CALL docursor();",
-     "  CREATE PROCEDURE hunter.test_1()\n-> BEGIN\n->  DECLARE v VARCHAR(200);",
-     "CALL hunter.test_1();",
-     "  CREATE PROCEDURE hunter.test_1()\n-> BEGIN  - 592 -  ->  DECLARE v VARCHAR(200);",
-     "CALL hunter.test_1();",
+     """
+          DROP PROCEDURE IF EXISTS docursor; 
+          CREATE PROCEDURE docursor()
+          BEGIN 
+               DECLARE s_region VARCHAR(40); 
+               DECLARE DONE INT DEFAULT(0); 
+               DECLARE cur CURSOR FOR SELECT DISTINCT c_region FROM 
+               ssbm.customer ORDER BY c_region LIMIT 6; 
+               DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1; 
+               OPEN cur; 
+               REPEAT 
+               FETCH cur INTO s_region; 
+               IF NOT done THEN 
+               SELECT s_region; 
+               END IF; 
+               UNTIL DONE END REPEAT; 
+               CLOSE cur; 
+          END 
+     """,
+     """
+          DROP PROCEDURE IF EXISTS docursor;
+          CREATE PROCEDURE docursor() 
+          BEGIN 
+               DECLARE s_region VARCHAR(40); 
+               DECLARE DONE INT DEFAULT(0); 
+               DECLARE cur REF CURSOR; 
+               DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1; 
+               OPEN cur FOR SELECT DISTINCT c_region FROM ssbm.customer ORDER BY c_region 
+               LIMIT 6; 
+               REPEAT 
+               FETCH cur INTO s_region; 
+               IF NOT done THEN 
+               SELECT s_region; 
+               END IF; 
+               UNTIL DONE END REPEAT; 
+               CLOSE cur; 
+          END     
+          
+     """,
+     """
+          CREATE PROCEDURE hunter.test_1() 
+          BEGIN 
+               DECLARE v VARCHAR(200); 
+               DECLARE i INT DEFAULT (0); 
+               DECLARE j INT DEFAULT (0); 
+               DECLARE cur REF CURSOR; 
+               SET v = 'SELECT * FROM hunter.t1'; 
+               SET @sql_str = v; 
+               OPEN cur FOR @sql_str; 
+               FETCH cur INTO i, j; 
+               SELECT i, j; 
+               CLOSE cur; 
+          END
+     """,
+     """
+          CREATE PROCEDURE hunter.test_1() 
+          BEGIN 
+          DECLARE v VARCHAR(200); 
+          SET v = 'SELECT * FROM hunter.t1 WHERE i = ? AND j = ?'; 
+          SET @sql_str = v; 
+          SET @a = 1; 
+          SET @b = 2; 
+          PREPARE stmt FROM @sql_str; 
+          EXECUTE stmt USING @a, @b; 
+          END
+     """,
      "show variables like '%event_scheduler%';",
-     "show processlist;",
      "show processlist;",
      "drop table if exists events_list;",
      "create table events_list(event_name varchar(20) not null, event_st\narted timestamp not null);",

@@ -10,8 +10,18 @@ from gbase_parser_simple.test_help import read_sql
     "SELECT COLLATION(_gb2312 'abc') FROM t;",
     "SELECT SUBSTRING_INDEX(USER(),_utf8'@',1) FROM t;",
     ## 南大通用数据技术股份有限公司 - 271 -
-    "SELECT NVL(color_type,'') as\ncolor_type_show,NVL(DECODE(color_type,NULL,f_YearMonth || '\u5408\u8ba1\n',NVL(f_YearMonth,color_type || ' \u5c0f\u8ba1')),'\u603b\u8ba1') AS\nf_YearMonth_show,SUM(color_count) FROM (SELECT\ncolor_type,DATE_FORMAT(in_date, '%Y-%m') as f_YearMonth,color_count FROM t3)\nt GROUP BY CUBE(color_type,f_YearMonth) ORDER BY color_type,f_YearMonth;",
-    "SELECT NVL(color_type,'') as\ncolor_type_show,DECODE(NVL(color_type,''),'','\u603b\u8ba1\n',NVL(f_YearMonth,color_type || ' \u5c0f\u8ba1')) AS\nf_YearMonth_show,SUM(color_count) FROM (SELECT\ncolor_type,DATE_FORMAT(in_date, '%Y-%m') as f_YearMonth,color_count FROM t3)\nt GROUP BY ROLLUP(color_type,f_YearMonth) ORDER BY color_type,f_YearMonth;",
+    """SELECT NVL(color_type,'') as
+    color_type_show,NVL(DECODE(color_type,NULL,f_YearMonth || '\u5408\u8ba1\n',
+    NVL(f_YearMonth,color_type || ' \u5c0f\u8ba1')),'\u603b\u8ba1') AS f_YearMonth_show,
+    SUM(color_count) FROM (SELECT\ncolor_type,DATE_FORMAT(in_date, '%Y-%m') as f_YearMonth,color_count FROM t3)
+    t GROUP BY CUBE(color_type,f_YearMonth) ORDER BY color_type,f_YearMonth;
+    """,
+    """
+    SELECT NVL(color_type,'') as
+    color_type_show,DECODE(NVL(color_type,''),'','\u603b\u8ba1 ',NVL(f_YearMonth,color_type || ' \u5c0f\u8ba1')) AS\nf_YearMonth_show,SUM(color_count) FROM (SELECT
+    color_type,DATE_FORMAT(in_date, '%Y-%m') as f_YearMonth,color_count FROM t3)
+    t GROUP BY ROLLUP(color_type,f_YearMonth) ORDER BY color_type,f_YearMonth;
+    """,
     ## - 276 - 南大通用数据技术股份有限公司
     "SELECT *,RANK() OVER(PARTITION BY i ORDER BY j desc) AS rank FROM t1;",
     ## - 278 - 南大通用数据技术股份有限公司
@@ -27,7 +37,7 @@ from gbase_parser_simple.test_help import read_sql
     ## 288
     "SELECT *,LEAD(result, 1, NULL) OVER(PARTITION BY result ORDER BY area\nDESC) AS LEAD FROM t_olap;",
     #
-    "select i,v,grouping(i),grouping(v) from t1 group by grouping sets(i,v);",
+    "select i,v,grouping(i),grouping(v) from t1 group by grouping sets(i,v);",                        # GBASE SPEC gram
     "select *, var_pop(totalamount) over (partition by uname order by dt)\nas var_pop from tt;",
     "select *, var_samp(totalamount) over (partition by uname order by dt)\nas var_samp from tt;",
     "select *, cume_dist() over (partition by uname order by dt) as cume_dist\nfrom tt;",
@@ -35,7 +45,7 @@ from gbase_parser_simple.test_help import read_sql
     "select *, ntile('2') over (partition by uname order by dt) as ntile from\ntt;",
     "select *, ntile(2.1) over (partition by uname order by dt) as ntile from\ntt;",
     "select *, first_value(totalamount) over (partition by uname order by\ndt) as first_value from tt;",
-    "select *, first_value('const') over (partition by uname order by dt)  - 298 -  \u5357\u5927\u901a\u7528\u6570\u636e\u6280\u672f\u80a1\u4efd\u6709\u9650\u516c\u53f8  \fGBase 8a MPP Cluster SQL\u53c2\u8003\u624b\u518c\nas first_value from tt;",
+    "select *, first_value('const') over (partition by uname order by dt) as first_value from tt;",
     "select *, first_value(NULL) over (partition by uname order by dt) as\nfirst_value from tt;",
     "select *, last_value(totalamount) over (partition by uname order by dt)\nas last_value from tt;",
     "select *, last_value('const') over (partition by uname order by dt) as\nlast_value from tt;",

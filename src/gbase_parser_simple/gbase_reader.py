@@ -1,7 +1,7 @@
 from neo4j import GraphDatabase
 from gbase_parser_simple.test_help import read_sql, delimiter_parse
 import chardet
-
+from rule_loader import Rule
 from antlr4 import ParseTreeWalker
 
 from gbase_parser_simple.pygram.GBaseParser import GBaseParser
@@ -106,12 +106,8 @@ def generate_tree(context, db):
 
 
 def analysis_tree(db):
-    rule = os.path.join(os.path.dirname(__file__), "neo4j_rule/*.cypher")
-    # for fpath in glob.glob(rule):
-    #     print(fpath)
-    #     with open(fpath) as fp:
-    #         for query in fp.read().split(";"):
-    #             db.exec(query)
+    rule = Rule(db)
+    rule.run()
 
 
 if __name__ == "__main__":
