@@ -11,7 +11,7 @@ class Rule:
         "identify/QualifiedIdentifier",
         "identify/table",
         "identify/select",
-
+        "gen/out",
     ]
     def __init__(self, db=None):
         self._db = db
