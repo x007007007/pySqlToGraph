@@ -12,6 +12,8 @@ class Rule:
         "identify/table",
         "identify/select",
         "gen/out",
+        "gen/in",
+        "gen/join_in",
     ]
     def __init__(self, db=None):
         self._db = db
