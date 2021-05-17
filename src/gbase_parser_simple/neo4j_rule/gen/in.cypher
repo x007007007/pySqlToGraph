@@ -1,22 +1,37 @@
-MATCH (FromClauseContext:Node)-[:Children]->(TableReferenceListContext:Node)
+MATCH p=(FromClauseContext:Node)
+  -[:Children]->(TableReferenceListContext:Node)
   -[c:Children]->(TableReferenceContext:Node)
+  -[:Children]->(JoinedTableContext:Node)
+  -[:Children]->(TableReferenceContext1:Node)
   -[:Children]->(TableFactorContext:Node)
   -[:Children]->(SingleTableContext:Node)
-where FromClauseContext.message = "FromClauseContext"
+WHERE
+  FromClauseContext.message = "FromClauseContext"
   and TableReferenceListContext.message = "TableReferenceListContext"
   and TableReferenceContext.message = "TableReferenceContext"
+  and JoinedTableContext.message = "JoinedTableContext"
+  and TableReferenceContext1.message = "TableReferenceContext"
   and TableFactorContext.message = "TableFactorContext"
   and SingleTableContext.message = "SingleTableContext"
-MERGE (FromClauseContext)-[:Deduce]->(inputs:INPUTs)
-MERGE (TableReferenceContext)-[:Deduce]->(input:INPUT {
-    order: c.order / 2,
+OPTIONAL MATCH (JoinedTableContext)
+  -[:Children]->(TableReferenceContext:Node)
+  -[:Children]->(TableFactorContext:Node)
+  -[:Children]->(SingleTableContext:Node)
+OPTIONAL MATCH (JoinedTableContext)-[:Children]->(join_end_node:EndNode)
+OPTIONAL MATCH (FromClauseContext)-[:Children]->(form_sym:EndNode)
+WHERE TableReferenceContext.message = "TableReferenceContext"
+  and TableFactorContext.message = "TableFactorContext"
+  and SingleTableContext.message = "SingleTableContext"
+OPTIONAL MATCH where_join=(JoinedTableContext)-[:Children]->(ExprIsContext:Node)
+  -[:Children *]->(end:EndNode)
+MERGE (FromClauseContext)
+  -[:Deduce]->(inputs:INPUTs)
+MERGE (inputs)
+  -[:Children]->(:INPUT {
+    ref_name: SingleTableContext.ref_name,
     ref_namespace: SingleTableContext.ref_namespace,
-    ref_name:  SingleTableContext.ref_name,
     alias_name: SingleTableContext.alias_name
-})
-MERGE (inputs)-[:Children {order: c.order}]->(input)
-set TableReferenceListContext.delete = True
-set TableReferenceContext.delete = True
-set TableFactorContext.delete = True
-set SingleTableContext.delete = True
-;
+  })<-[:Deduce]-(JoinedTableContext)
+FOREACH (n in nodes(where_join) | set n.delete=true)
+set join_end_node.delete = TRUE
+set form_sym.delete = true
