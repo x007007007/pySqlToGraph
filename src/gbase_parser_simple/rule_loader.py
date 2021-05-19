@@ -5,15 +5,20 @@ import os
 
 class Rule:
     playbook = [
+        "mark_root",
         "identify/dotIdentify",
         "identify/dotIdentifyEnd",
         "identify/identify",
         "identify/QualifiedIdentifier",
         "identify/table",
         "identify/select",
-        "gen/out",
-        "gen/in",
-        "gen/join_in",
+        "select/clean",
+        "select/out",
+        "select/in",
+        "select/join_in",
+        "select/connect_select",
+        "proc/proc_argc",
+        "proc/proc"
     ]
     def __init__(self, db=None):
         self._db = db
