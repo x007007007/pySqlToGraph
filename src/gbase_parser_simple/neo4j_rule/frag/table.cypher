@@ -1,14 +1,21 @@
-MATCH (TableReferenceContext:Node)
-  -[:Children]->(TableFactorContext:Node)
-  -[:Children]->(SingleTableContext:Node)
-WHERE TableReferenceContext.message = "TableReferenceContext"
-  and TableFactorContext.message = "TableFactorContext"
-  and SingleTableContext.message = "SingleTableContext"
-MERGE (table:Table {
-  alias_name: TableReferenceContext.alias_name
-  ref_name: TableReferenceContext.ref_name
-  ref_namespace: TableReferenceContext.ref_namespace
-})<-[:Deduce]-(TableReferenceContext)
-set TableFactorContext.delete = TRUE
-set SingleTableContext.delete = TRUE
+MATCH p=(TableReferenceListContext:Node)
+  -[c:Children]->(TableReferenceContext:Node)
+  -[:table_link *0..]->(SingleTableContext:Node)
+where SingleTableContext.message = "SingleTableContext"
+  and TableReferenceListContext.message = "TableReferenceListContext"
+MERGE (TableReferenceListContext)-[:Deduce]->(tables:TABLES)
+MERGE (SingleTableContext)-[:Deduce]->(table:TABLE {
+        alias_name: SingleTableContext.alias_name,
+        ref_name: SingleTableContext.ref_name,
+        ref_namespace: SingleTableContext.ref_namespace,
+        order: c.order
+    })
+    <-[:Children]-(tables)
+
+;
+
+
+MATCH (:TABLES)<-[:Deduce]-(:Node)-[:Children]->(c:Node)
+OPTIONAL MATCH p=(c)-[:Children *0..]->(:EndNode)
+FOREACH (n in nodes(p) | SET n.delete=True)
 ;
