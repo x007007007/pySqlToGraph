@@ -21,6 +21,7 @@ class Rule:
         "select/in",
         "select/join_in",
         "select/connect_select",
+        "update/update",
         "proc/proc_argc",
         "proc/proc"
     ]
