@@ -17,11 +17,16 @@ class Rule:
         "frag/table",
         "frag/expr_link",
         "select/clean",
+        "select/01_shortcut",  # QueryExpressionParensContext loop  add link_query
         "select/out",
         "select/in",
         "select/join_in",
         "select/connect_select",
         "update/update",
+        "insert/insert_00",
+        "insert/insert_10_insertQuery",
+        "insert/insert_10_FromConstructor",
+        "insert/insert_10_updateList",
         "proc/proc_argc",
         "proc/proc"
     ]
