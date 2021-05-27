@@ -17,3 +17,13 @@ WHERE use_link.order = 4
   and TableReferenceContext.message = "TableReferenceContext"
 MERGE (merge)-[:use]->(table)
 ;
+
+
+MATCH (merge:ACTION {type: 'merge'})
+  <-[:Deduce]-(MergeIntoStatementContext:Node)
+  -[:Children]->(MergeInsertClauseContext:Node)
+  -[:Deduce]->(insert:ACTION {type:"insert"})
+WHERE MergeIntoStatementContext.message = "MergeIntoStatementContext"
+  and MergeInsertClauseContext.message = "MergeInsertClauseContext"
+MERGE (merge)-[:insert]->(insert)
+;
