@@ -8,7 +8,7 @@ WHERE MergeInsertClauseContext.message = "MergeInsertClauseContext"
   and table_link.order = 2
 MERGE (MergeInsertClauseContext)
   -[:Deduce]->(:ACTION {type: 'insert'})
-  -[:Children]->(table)<-[:Deduce]-(TableRefContext)
+  -[:Children]->(table)
 ;
 
 
