@@ -1,17 +1,26 @@
+MATCH p=(TableReferenceContext:Node)
+  -[:table_link *0..]->(SingleTableContext:Node)
+where TableReferenceContext.message = "TableReferenceContext"
+  and SingleTableContext.message = "SingleTableContext"
+MERGE (table:TABLE {
+    type: "ref",
+    alias_name: SingleTableContext.alias_name,
+    ref_name: SingleTableContext.ref_name,
+    ref_namespace: SingleTableContext.ref_namespace
+})<-[:Deduce]-(TableReferenceContext)
+MERGE (table)<-[:Deduce]-(SingleTableContext)
+;
+
 MATCH p=(TableReferenceListContext:Node)
   -[c:Children]->(TableReferenceContext:Node)
-  -[:table_link *0..]->(SingleTableContext:Node)
-where SingleTableContext.message = "SingleTableContext"
+where TableReferenceContext.message = "TableReferenceContext"
   and TableReferenceListContext.message = "TableReferenceListContext"
-MERGE (TableReferenceListContext)-[:Deduce]->(tables:TABLES)
-MERGE (SingleTableContext)-[:Deduce]->(table:TABLE {
-        alias_name: SingleTableContext.alias_name,
-        ref_name: SingleTableContext.ref_name,
-        ref_namespace: SingleTableContext.ref_namespace,
-        order: c.order
-    })
-    <-[:Children]-(tables)
-
+OPTIONAL MATCH (TableReferenceContext)
+  -[:Deduce]->(table:TABLE)
+MERGE (TableReferenceListContext)
+  -[:Deduce]->(tables:TABLES)
+  -[:Children]->(table)
+SET table.order = c.order
 ;
 
 

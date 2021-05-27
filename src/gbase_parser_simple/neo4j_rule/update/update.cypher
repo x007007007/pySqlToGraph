@@ -35,13 +35,17 @@ MATCH (UpdateStatementContext:Node)
   -[:Children]->(UpdateListContext:Node)
   -[:Children]->(UpdateElementContext:Node)
   -[:Deduce]->(update_field:FIELD)
-WHERE UpdateStatementContext.message = "UpdateStatementContext"
+WHERE (UpdateStatementContext.message = "UpdateStatementContext"
+    or UpdateStatementContext.message = "MergeUpdateClauseContext")
   and UpdateListContext.message = "UpdateListContext"
   and UpdateElementContext.message = "UpdateElementContext"
 OPTIONAL MATCH (UpdateStatementContext)
-  -[:Children]->(TableReferenceListContext:Node)
+  -[:Children]-(TableReferenceListContext:Node)
   -[:Deduce]->(tables:TABLES)
-WHERE TableReferenceListContext.message = "TableReferenceListContext"
+WHERE (
+  TableReferenceListContext.message = "TableReferenceListContext"
+  or TableReferenceListContext.message = "MergeIntoStatementContext"
+)
 MERGE (update:UPDATE)<-[:Deduce]-(UpdateStatementContext)
 MERGE (write:WRITE)<-[:Deduce]-(UpdateListContext)
 MERGE (write)-[:Children]->(update_field)
