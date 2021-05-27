@@ -1,4 +1,11 @@
-MATCH p=(MergeIntoStatementContext:Node)
+MATCH (MergeIntoStatementContext:Node)
+WHERE MergeIntoStatementContext.message = "MergeIntoStatementContext"
+MERGE (merge:ACTION {type: 'merge'})<-[:Deduce]-(MergeIntoStatementContext)
+;
+
+
+MATCH p=(merge:ACTION {type: 'merge'})
+  <-[:Deduce]-(MergeIntoStatementContext:Node)
         -[:Children]->(MergeUpdateClauseContext:Node)
 WHERE MergeIntoStatementContext.message = "MergeIntoStatementContext"
   and MergeUpdateClauseContext.message = "MergeUpdateClauseContext"
@@ -16,6 +23,7 @@ MERGE (MergeIntoStatementContext)
   })
   <-[:Children]-(tables:TABLES)
   <-[:Deduce]-(MergeIntoStatementContext)
+MERGE (merge)-[:table]->(table)
 FOREACH (n in nodes(p1) | set n.delete = TRUE)
 set MergeIntoStatementContext.delete = FALSE
 ;

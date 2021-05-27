@@ -3,7 +3,10 @@ MATCH (InsertStatementContext:Node)
   -[:Children]->(FieldsContext:Node)
   -[r:Children]->(InsertIdentifierContext:Node)
   -[:Children]->(ColumnRefContext:Node)
-WHERE InsertStatementContext.message = 'InsertStatementContext'
+WHERE (InsertStatementContext.message = "InsertStatementContext"
+    or
+    InsertStatementContext.message = "MergeInsertClauseContext"
+  )
   AND (
     InsertQueryExpressionContext.message = 'InsertQueryExpressionContext'
     OR InsertQueryExpressionContext.message = 'InsertFromConstructorContext'

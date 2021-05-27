@@ -16,7 +16,10 @@ OPTIONAL MATCH pp1=(InsertStatementContext)
   -[:Children]->(subNode:Node)
   -[:expr_link *..]->(:Node)
   -[:Children]->(cared:Node)
-WHERE InsertStatementContext.message = "InsertStatementContext"
+WHERE (InsertStatementContext.message = "InsertStatementContext"
+  or
+  InsertStatementContext.message = "MergeInsertClauseContext"
+)
   and InsertFromConstructorContext.message = "InsertFromConstructorContext"
   and InsertValuesContext.message = "InsertValuesContext"
   and ValueListContext.message = "ValueListContext"

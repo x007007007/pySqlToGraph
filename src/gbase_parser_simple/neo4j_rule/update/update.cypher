@@ -46,7 +46,7 @@ WHERE (
   TableReferenceListContext.message = "TableReferenceListContext"
   or TableReferenceListContext.message = "MergeIntoStatementContext"
 )
-MERGE (update:UPDATE)<-[:Deduce]-(UpdateStatementContext)
+MERGE (update:ACTION {type: "update"})<-[:Deduce]-(UpdateStatementContext)
 MERGE (write:WRITE)<-[:Deduce]-(UpdateListContext)
 MERGE (write)-[:Children]->(update_field)
 MERGE (update)-[:Children]->(write)

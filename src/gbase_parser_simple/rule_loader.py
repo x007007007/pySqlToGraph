@@ -27,10 +27,13 @@ class Rule:
         "merge/before_update",
         "update/update",
         "insert/insert_00_table",
+        "insert/insert_00_merge",
         "insert/insert_01_fields",
         "insert/insert_10_insertQuery",
         "insert/insert_10_FromConstructor",
         "insert/insert_10_updateList",
+        "merge/clean",
+        "merge/merge",
         "proc/proc_argc",
         "proc/proc"
     ]
