@@ -6,9 +6,9 @@ import os
 class Rule:
     playbook = [
         "mark_root",
+        "identify/identify",
         "identify/dotIdentify",
         "identify/dotIdentifyEnd",
-        "identify/identify",
         "identify/QualifiedIdentifier",
         "identify/table",
         "identify/select",
@@ -44,6 +44,7 @@ class Rule:
     def run(self):
         for book in self.playbook:
             with open(os.path.join(self._rule_path, f"{book}.cypher")) as fp:
+                print(f"++++++++++{book}+++++++++")
                 for query in fp.read().split(";"):
                     query = query.strip()
                     if query:

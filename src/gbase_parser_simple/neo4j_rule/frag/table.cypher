@@ -13,10 +13,9 @@ MERGE (table)<-[:Deduce]-(SingleTableContext)
 
 MATCH p=(TableReferenceListContext:Node)
   -[c:Children]->(TableReferenceContext:Node)
+  -[:Deduce]->(table:TABLE)
 where TableReferenceContext.message = "TableReferenceContext"
   and TableReferenceListContext.message = "TableReferenceListContext"
-OPTIONAL MATCH (TableReferenceContext)
-  -[:Deduce]->(table:TABLE)
 MERGE (TableReferenceListContext)
   -[:Deduce]->(tables:TABLES)
   -[:Children]->(table)
