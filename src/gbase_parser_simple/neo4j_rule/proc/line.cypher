@@ -13,17 +13,19 @@ MATCH p=(root)
     -[:Children]->(QueriesContext:Node)
     -[:Children]->(QueryContext:Node)
     <-[:next *..]-(QueryContextEnd:Node)
-    -[:Children *1..3]->()
+    -[:Children]->(SimpleStatementContext:Node)
+    -[:Children]->(something:Node)
     -[:Deduce]->(action:ACTION)
-WHERE root.message <> "QueriesContext"
+WHERE root.message = "root"
   and QueriesContext.message = "QueriesContext"
   and QueryContext.message = "QueryContext"
   and QueryContextEnd.message = "QueryContext"
-OPtional MATCH p2=(QueryContext)
+  and SimpleStatementContext.message = "SimpleStatementContext"
+OPTIONAL MATCH p1=(QueryContext)
     <-[:next *..]-(QueryContextEnd)
 MERGE (root)
   -[:Deduce]->(actions:ACTIONS)
 MERGE (actions)
   -[:Children {
-    order: -length(p2)
+    order: -length(p1)
   }]->(action)
