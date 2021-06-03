@@ -15,7 +15,7 @@ MATCH p=(root)
     <-[:next *..]-(QueryContextEnd:Node)
     -[:Children]->(SimpleStatementContext:Node)
     -[:Children]->(something:Node)
-    -[:Deduce]->(action:ACTION)
+    -[:Deduce]->(action)
 WHERE root.message = "root"
   and QueriesContext.message = "QueriesContext"
   and QueryContext.message = "QueryContext"
@@ -23,9 +23,16 @@ WHERE root.message = "root"
   and SimpleStatementContext.message = "SimpleStatementContext"
 OPTIONAL MATCH p1=(QueryContext)
     <-[:next *..]-(QueryContextEnd)
+OPTIONAL MATCH p2=(QueriesContextStart:Node)
+    -[:Children *.. ]->(QueriesContextEnd:Node)
+    -[:Children]->(QueryContextEnd:Node)
+WHERE QueriesContextEnd.message = "QueriesContext"
+  and QueriesContextStart.message = "QueriesContext"
+  and QueryContextEnd.message = "QueryContext"
 MERGE (root)
   -[:Deduce]->(actions:ACTIONS)
 MERGE (actions)
   -[:Children {
     order: -length(p1)
   }]->(action)
+FOREACH (n in nodes(p2)| set n.delete = TRUE)

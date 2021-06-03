@@ -10,7 +10,7 @@ where CreateProcedureContext.message = "CreateProcedureContext"
   and ProcedureParameterContext.message = "ProcedureParameterContext"
   and QualifiedIdentifierContext.message = "QualifiedIdentifierContext"
 MERGE
-  (argu:Argument {name: QualifiedIdentifierContext.name})<-[:Reduce]-(ProcedureParameterContext)
+  (argu:Argument {name: QualifiedIdentifierContext.name})<-[:Deduce]-(ProcedureParameterContext)
 set QualifiedIdentifierContext.delete = true
 set ProcedureParameterContext.delete = true
 ;
@@ -26,7 +26,7 @@ where CreateProcedureContext.message = "CreateProcedureContext"
   and ParameterNameContext.message = "ParameterNameContext"
   and IdentifierContext.message = "IdentifierContext"
 MERGE
-  (argu:Argument {name: IdentifierContext.value})<-[:Reduce]-(ProcedureParameterContext)
+  (argu:Argument {name: IdentifierContext.value})<-[:Deduce]-(ProcedureParameterContext)
 set ProcedureParameterContext.delete = true
 set FunctionParameterContext.delete = true
 set ParameterNameContext.delete = true
@@ -35,7 +35,7 @@ set IdentifierContext.delete = true
 
 
 MATCH (argv:Argument)
-  <-[:Reduce]-(ProcedureParameterContext:Node)
+  <-[:Deduce]-(ProcedureParameterContext:Node)
   -[:Children]->(in_or_out:EndNode)
 where ProcedureParameterContext.message = "ProcedureParameterContext"
 set argv.directive = toLower(in_or_out.text)

@@ -13,7 +13,7 @@ MERGE (inputs)-[:Effect]-(outs)
 set select_sym.delete = TRUE
 ;
 
-MATCH (SelectStatementContext:Node)
+MATCH p=(SelectStatementContext:Node)
   -[:link_query *..]->(QueryExpressionContext:Node)
   -[:Children]->(QueryExpressionBodyContext:Node)
   -[:Children]->(QueryPrimaryContext:Node)
@@ -23,6 +23,7 @@ MATCH (SelectStatementContext:Node)
 WHERE (SelectStatementContext.message = 'SelectStatementContext'
   or SelectStatementContext.message = 'SubqueryContext'
   or SelectStatementContext.message = "InsertQueryExpressionContext"
+  or SelectStatementContext.message = "QueryExpressionOrParensContext"
 )
   and QueryExpressionContext.message = 'QueryExpressionContext'
   and QueryExpressionBodyContext.message = 'QueryExpressionBodyContext'
@@ -32,4 +33,7 @@ WHERE (SelectStatementContext.message = 'SelectStatementContext'
 MERGE (rule:ACTION {type: "select"})
   <-[:Deduce]-(SelectStatementContext)
 MERGE (rule)-[:Children]->(outs)
+FOREACH (n in nodes(p)| set n.delete = TRUE)
+set SelectStatementContext.delete = FALSE
+remove outs.delete
 ;

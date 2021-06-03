@@ -9,7 +9,9 @@ MERGE (ExprIsContext)-[:expr_link]->(sub)
 
 MATCH (BitExprContext:Node)
   -[:Children]->(sub:Node)
-WHERE BitExprContext.message = "BitExprContext"
+WHERE (BitExprContext.message = "BitExprContext"
+  or
+    BitExprContext.message = "DuplicateAsQueryExpressionContext")
   and sub.message in  [
     "BitExprContext",
     "SimpleExprVariableContext",

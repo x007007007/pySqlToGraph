@@ -7,10 +7,10 @@ where CreateStatementContext.message = "CreateStatementContext"
   and QualifiedIdentifierContext.message = "QualifiedIdentifierContext"
 OPTIONAL MATCH (CreateProcedureContext)
   -[:Children]->(ProcedureParameterContext:Node)
-  -[:Reduce]->(argv:Argument)
+  -[:Deduce]->(argv:Argument)
 where ProcedureParameterContext.message = "ProcedureParameterContext"
 MERGE (CreateStatementContext)
-  -[:Reduce]->(func:Func {
+  -[:Deduce]->(func:PRODUCE {
     name: QualifiedIdentifierContext.name,
     namespace: QualifiedIdentifierContext.namespace
   })

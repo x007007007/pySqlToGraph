@@ -8,5 +8,6 @@ WHERE
   and TableFactorContext.message = "TableFactorContext"
   and DerivedTableContext.message = "DerivedTableContext"
   and SubqueryContext.message = "SubqueryContext"
+  and select.type = "select"
 MERGE (table)-[:subquery]->(select)
 ;

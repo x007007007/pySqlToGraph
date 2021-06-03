@@ -17,6 +17,7 @@ class Rule:
         "frag/table",
         "frag/expr_link",
         "frag/subquery_table",
+        "call/call",
         "select/clean",
         "select/01_shortcut",  # QueryExpressionParensContext loop  add link_query
         "select/out",
@@ -24,6 +25,7 @@ class Rule:
         "select/join_in",
         "select/connect_select",
         "select/subquery_link",
+        "create_table/table",
         "merge/before_update",
         "update/update",
         "insert/insert_00_table",
@@ -34,9 +36,13 @@ class Rule:
         "insert/insert_10_updateList",
         "merge/clean",
         "merge/merge",
+        "proc/proc_line",
         "proc/proc_argc",
-        "proc/proc"
+        "proc/proc_name",
+        "proc/proc_link",
+        "root_link"
     ]
+
     def __init__(self, db=None):
         self._db = db
         self._rule_path = os.path.join(os.path.dirname(__file__), 'neo4j_rule')
