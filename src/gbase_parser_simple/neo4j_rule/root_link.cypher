@@ -36,3 +36,27 @@ MERGE (actions)
     order: -length(p1)
   }]->(action)
 FOREACH (n in nodes(p2)| set n.delete = TRUE)
+;
+
+
+MATCH p=(root:Root)
+    -[:Children]->(QueriesContext:Node)
+    -[:Children]->(QueryContext:Node)
+    -[:Children]->(SimpleStatementContext:Node)
+    -[:Children]->(something:Node)
+    -[:Deduce]->(action)
+WHERE root.message = "root"
+  and QueriesContext.message = "QueriesContext"
+  and QueryContext.message = "QueryContext"
+  and SimpleStatementContext.message = "SimpleStatementContext"
+MERGE (root)
+  -[:Deduce]->(actions:ACTIONS)
+MERGE (actions)
+  -[:Children {
+    order: 0
+  }]->(action)
+set QueriesContext.delete = TRUE
+set QueryContext.delete = TRUE
+set SimpleStatementContext.delete = TRUE
+set something.delete = TRUE
+;

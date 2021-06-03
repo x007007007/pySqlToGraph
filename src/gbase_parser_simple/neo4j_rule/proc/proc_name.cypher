@@ -10,7 +10,8 @@ OPTIONAL MATCH (CreateProcedureContext)
   -[:Deduce]->(argv:Argument)
 where ProcedureParameterContext.message = "ProcedureParameterContext"
 MERGE (CreateStatementContext)
-  -[:Deduce]->(func:PRODUCE {
+  -[:Deduce]->(func:ACTION {
+    type: 'create_procduce',
     name: QualifiedIdentifierContext.name,
     namespace: QualifiedIdentifierContext.namespace
   })

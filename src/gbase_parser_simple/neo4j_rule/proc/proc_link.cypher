@@ -1,4 +1,4 @@
-MATCH (proc:PRODUCE)
+MATCH (proc:ACTION)
   <-[:Deduce]-(CreateStatementContext:Node)
   -[:Children]->(CreateProcedureContext:Node)
   -[:Children]->(CompoundStatementContext:Node)
@@ -12,6 +12,7 @@ where CreateStatementContext.message = "CreateStatementContext"
   and UnlabeledBlockContext.message = "UnlabeledBlockContext"
   and BeginEndBlockContext.message = "BeginEndBlockContext"
   and CompoundStatementListContext.message = "CompoundStatementListContext"
+  and proc.type = "create_procduce"
 MERGE (proc)-[:Children]->(actions)
 ;
 
