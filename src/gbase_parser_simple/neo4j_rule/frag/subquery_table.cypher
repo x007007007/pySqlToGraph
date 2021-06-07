@@ -7,17 +7,27 @@ WHERE DerivedTableContext.message = "DerivedTableContext"
 SET DerivedTableContext.alias_name = IdentifierContext.value
 ;
 
-MATCH (TableReferenceContext:Node)
+MATCH (TableReferenceListContext:Node)
+  -[:Children]->(TableReferenceContext:Node)
   -[:table_link *..]->(table_end:Node)
   -[:Children]->(DerivedTableContext:Node)
   -[:Children]->(SubqueryContext:Node)
-WHERE TableReferenceContext.message = "TableReferenceContext"
+WHERE TableReferenceListContext.message = "TableReferenceListContext"
+  and TableReferenceContext.message = "TableReferenceContext"
   and DerivedTableContext.message = "DerivedTableContext"
   and SubqueryContext.message = "SubqueryContext"
 MERGE (table:TABLE {
   type: "subquery"
 })<-[:Deduce]-(TableReferenceContext)
+MERGE (table)-[:Shortcut]->(SubqueryContext)
 set table.alias_name = DerivedTableContext.alias_name
+set DerivedTableContext.delete = TRUE
 ;
 
-
+MATCH (table:TABLE)
+  -[:Shortcut]->(SubqueryContext:Node)
+  -[:Deduce]->(select:ACTION)
+WHERE SubqueryContext.message = "SubqueryContext"
+  and select.type = "select"
+MERGE (table)-[:subquery]->(select)
+;

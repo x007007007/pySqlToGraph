@@ -5,6 +5,7 @@ where TableReferenceContext.message = "TableReferenceContext"
   and TableReferenceListContext.message = "TableReferenceListContext"
 MERGE (TableReferenceListContext)
   -[:Deduce]->(tables:TABLES)
+MERGE (tables)
   -[:Children]->(table)
 SET table.order = c.order
 ;
