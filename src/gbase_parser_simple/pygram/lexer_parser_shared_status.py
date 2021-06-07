@@ -23,7 +23,7 @@ class BridgeOfLexerAndParserStatus:
 
     @sqlMode.setter
     def sqlMode(self, v):
-        print(f"sqlMode set: {v}")
+        # print(f"sqlMode set: {v}")
         self._sqlMode = v
 
     @property
@@ -32,23 +32,23 @@ class BridgeOfLexerAndParserStatus:
 
     @inVersionComment.setter
     def inVersionComment(self, status):
-        print("version comment")
+        # print("version comment")
         self._inVersionComment = status
 
 
     def isSqlModeActive(self, mode):
         res = (self.sqlMode & mode) != 0
-        print(f"isSqlModeActive, {mode}, {res}")
+        # print(f"isSqlModeActive, {mode}, {res}")
         return res
 
     def LOGICAL_OR_OPERATOR(self, CONCAT_PIPES_SYMBOL, OGICAL_OR_OPERATOR):
-        print("LOGICAL_OR_OPERATOR")
+        # print("LOGICAL_OR_OPERATOR")
         if self.setType(self.isSqlModeActive(self.PipesAsConcat)):
             return CONCAT_PIPES_SYMBOL
         return OGICAL_OR_OPERATOR
 
     def NOT_SYMBOL(self, NOT2_SYMBOL, NOT_SYMBOL):
-        print("NOT_SYMBOL")
+        # print("NOT_SYMBOL")
         if self.setType(self.isSqlModeActive(self.HighNotPrecedence)):
             return NOT2_SYMBOL
         return NOT_SYMBOL

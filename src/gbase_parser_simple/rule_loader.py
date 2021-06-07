@@ -58,3 +58,4 @@ class Rule:
                             self._db.exec(query)
                         except CypherSyntaxError as e:
                             raise SyntaxError(f"{book}: {e.message}")
+

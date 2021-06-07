@@ -50,7 +50,7 @@ class GBaseBaseLexer(Lexer):
         :return:
         """
         nextToken = super(GBaseBaseLexer, self).nextToken()
-        print(f"default: {nextToken}")
+        # print(f"default: {nextToken}")
         return nextToken
 
     def determineNumericType(self, text):
@@ -135,7 +135,7 @@ class GBaseBaseLexer(Lexer):
         :param text:
         :return:
         """
-        print(f"determineNumber: {text}")
+        # print(f"determineNumber: {text}")
         long_str = "2147483647"
         long_len = 10
         signed_long_str = "-2147483648"
@@ -220,17 +220,17 @@ class GBaseBaseLexer(Lexer):
             chars = [ord(i) for i in r" \t\r\n"]
             while True:
                 input = self._input.LA(i)
-                print(f"debug: input: {input}")
+                # print(f"debug: input: {input}")
                 if input not in chars:
                     break
                 i += 1
-                print(f"debug: input: {input}")
+                # print(f"debug: input: {input}")
 
         if self._input.LA(i) == ord('('):
-            print("proposed")
+            # print("proposed")
             return proposed
         else:
-            print("self.IDENTIFIER")
+            # print("self.IDENTIFIER")
             return self.IDENTIFIER
 
 

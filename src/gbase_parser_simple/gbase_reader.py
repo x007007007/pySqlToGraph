@@ -27,19 +27,19 @@ class DatabaseExample:
 
     @staticmethod
     def _exec(tx, cypher):
-        print(cypher)
+        # print(cypher)
         tx.run(cypher)
 
     def create_end_node(self, name, text):
         with self.driver.session() as session:
             greeting = session.write_transaction(self._create_end_node, name, text)
-            print(greeting)
+            # print(greeting)
             return greeting
 
     def create_node(self, name, children):
         with self.driver.session() as session:
             greeting = session.write_transaction(self._create_node, name, children)
-            print(greeting)
+            # print(greeting)
             return greeting
 
     @staticmethod
@@ -59,7 +59,7 @@ class DatabaseExample:
                         "SET a.message = $message "
                         "RETURN id(a)", message=message)
         root_id = result.single()[0]
-        print(root_id)
+        # print(root_id)
         for order, child in enumerate(children_id):
             relationship = tx.run("""
                 MATCH
@@ -69,7 +69,7 @@ class DatabaseExample:
                 CREATE (a)-[r:Children {order: $order}]->(b)
                 RETURN id(r)
             """, a_id=root_id, b_id=child, order=order)
-            print("add relationship")
+            # print("add relationship")
         return root_id
 
 
@@ -110,22 +110,32 @@ def analysis_tree(db):
     rule.run()
 
 
+def generate_tree(db):
+    pass
+
+
+
+
 if __name__ == "__main__":
 
     import glob, os
+    from gbase_parser_simple.engine.deduce import Deduce
 
     db = DatabaseExample("neo4j://localhost:7687", "neo4j", "123456")
-    db.clean()
-
-    for pth in glob.glob("/home/xxc-dev-machine/workspace/bocwm/pySqlToGraph/test/gbase_sql/test_sql/*.sql"):
-        with open(pth, "rb") as fp:
-            result = chardet.detect(fp.read())
-        with open(pth, encoding=result['encoding']) as fp:
-            for context in delimiter_parse(fp.read()):
-                if context:
-                    print("===========================start===============================")
-                    print(context)
-                    print("===========================end===============================")
-                    generate_tree(context, db)
-        # break
-    analysis_tree(db)
+    # db.clean()
+    deduce = Deduce(db)
+    # print("start generate graph")
+    # for pth in glob.glob("/home/xxc-dev-machine/workspace/bocwm/pySqlToGraph/test/gbase_sql/test_sql/*.sql"):
+    #     with open(pth, "rb") as fp:
+    #         result = chardet.detect(fp.read())
+    #     with open(pth, encoding=result['encoding']) as fp:
+    #         for context in delimiter_parse(fp.read()):
+    #             if context:
+    #                 print("===========================start===============================")
+    #                 print(context)
+    #                 print("===========================end===============================")
+    #                 generate_tree(context, db)
+    #     # break
+    # print("generate tree done")
+    # analysis_tree(db)
+    deduce.root()

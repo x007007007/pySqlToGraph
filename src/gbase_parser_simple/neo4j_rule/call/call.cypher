@@ -8,5 +8,6 @@ OPTIONAL MATCH p=(ProcedureRefContext)-[:Children *..]->(:EndNode)
 MERGE (call:ACTION {type:"call"})<-[:Deduce]-(CallStatementContext)
 MERGE (call)-[:Children]->(QualifiedIdentifierContext)
 FOREACH (n in nodes(p)| set n.delete = TRUE)
-
+set call.name = QualifiedIdentifierContext.name
+set call.namespace = QualifiedIdentifierContext.namespace
 ;
