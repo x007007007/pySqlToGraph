@@ -18,8 +18,11 @@ WHERE link.order = 2
 MERGE (MergeIntoStatementContext)
   -[:Deduce]->(table:TABLE {
     alias_name: SingleTableContext.alias_name,
+    alias_name_before_update: SingleTableContext.alias_name,
     ref_name: SingleTableContext.ref_name,
-    ref_namespace: SingleTableContext.ref_namespace
+    ref_namespace: SingleTableContext.ref_namespace,
+    alias_name_before_update: SingleTableContext.alias_name
+
   })
   <-[:Children]-(tables:TABLES)
   <-[:Deduce]-(MergeIntoStatementContext)

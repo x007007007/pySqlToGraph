@@ -67,11 +67,45 @@ class Deduce(object):
     def action_insert(self, record, record_id, record_data, context):
         print(f"{self}, {record}, {record_id}, {record_data}, {context}")
 
+
     def action_select(self, record, record_id, record_data, context):
         print(record)
 
+    def _action_update_tables(self, record_id):
+        tables_info_res = self.session.run(f"""
+            MATCH (update:ACTION)
+                -[:Children]->(:TABLES)
+                -[:Children]->(table:TABLE)
+            where id(update) = {record_id}
+            return table, id(table) as id
+        """)
+        tables_list = []
+        update_context = dict(
+            fields=[]
+        )
+        for table in tables_info_res:
+            table_data = table.data()
+            tables_list.append(table_data['table'])
+        return  tables_list
+
     def action_update(self, record, record_id, record_data, context):
-        print(record)
+        tables_list = self._action_update_tables(record_id)
+        print(tables_list)
+
+        update_fields_result = self.session.run(f"""
+            MATCH (update:ACTION)
+                -[:Children]->(:TABLES)
+                -[:Children]->(table:TABLE)
+            where id(update) = {record_id}
+            return table, id(table) as id
+        """)
+
+        self.session.run(f"""
+            MATCH (update:ACTION)
+                -[:Children]->(:WRITE)
+                -[:Children]->(field:FIELD)
+            where id(update) = {record_id}
+        """)
 
     def action_call(self, record, record_id, record_data, context):
         name = record_data['action'].get('name')

@@ -29,7 +29,8 @@ MERGE (inputs)
   -[:Children]->(:INPUT {
     ref_name: SingleTableContext.ref_name,
     ref_namespace: SingleTableContext.ref_namespace,
-    alias_name: SingleTableContext.alias_name
+    alias_name: SingleTableContext.alias_name,
+    alias_name_join_in: SingleTableContext.alias_name
   })<-[:Deduce]-(JoinedTableContext)
 FOREACH (n in nodes(where_join) | set n.delete=true)
 set join_end_node.delete = TRUE

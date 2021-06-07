@@ -12,6 +12,7 @@ Set SingleTableContext.alias_name = (
     when false then QualifiedIdentifierContext.name
   end
 )
+Set SingleTableContext.alias_name_identify = SingleTableContext.alias_name
 set TableRefContext.delete = true
 set QualifiedIdentifierContext.delete = true
 ;
@@ -24,6 +25,7 @@ MATCH p=(SingleTableContext:Node)
   and TableAliasContext.message = "TableAliasContext"
   and IdentifierContext.message = "IdentifierContext"
 Set SingleTableContext.alias_name = IdentifierContext.value
+Set SingleTableContext.alias_name_ident = IdentifierContext.value
 set TableAliasContext.delete = true
 set IdentifierContext.delete = true
 ;

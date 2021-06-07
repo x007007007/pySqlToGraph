@@ -4,6 +4,7 @@ MATCH p=(start:Node)-[:Children]->(alias_child:Node)-[:Children*]->(finish:EndNo
 MERGE (finish)-[:Shortcut]->(alias:Alias)
 MERGE (alias)-[:Shortcut] ->(start)
 SET finish.alias_name = finish.text
+SET finish.alias_name_finish_text7 = finish.text
 FOREACH (n IN nodes(p) | SET n.shortcut = true)
 set start.shortcut = false
 set finish.shortcut = false
@@ -16,6 +17,7 @@ MATCH p=(start:Node)-[:Children]->(table_ref_child:Node)-[:Children*]->(finish:E
 MERGE (finish)-[:Shortcut]->(alias:Alias)
 MERGE (alias)-[:Shortcut] ->(start)
 Set finish.alias_name = finish.text
+Set finish.alias_name_finish_text18 = finish.text
 FOREACH (n IN nodes(p) | SET n.shortcut = true)
 set start.shortcut = false
 set finish.shortcut = false
