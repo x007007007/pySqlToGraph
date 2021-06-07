@@ -17,6 +17,7 @@ class Rule:
         "frag/table",
         "frag/expr_link",
         "frag/subquery_table",
+        "frag/tables",
         "call/call",
         "select/clean",
         "select/01_shortcut",  # QueryExpressionParensContext loop  add link_query

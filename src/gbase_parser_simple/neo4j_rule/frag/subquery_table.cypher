@@ -7,8 +7,6 @@ WHERE DerivedTableContext.message = "DerivedTableContext"
 SET DerivedTableContext.alias_name = IdentifierContext.value
 ;
 
-
-
 MATCH (TableReferenceContext:Node)
   -[:table_link *..]->(table_end:Node)
   -[:Children]->(DerivedTableContext:Node)

@@ -1,18 +1,3 @@
-MATCH
-  (outs:OUTS)
-  <-[:Deduce]-(SelectItemListContext:Node)
-  <-[:Children]-(QuerySpecificationContext:Node)
-  -[:Children]->(FromClauseContext:Node)
-  -[:Deduce]->(inputs:INPUTs)
-OPTIONAL MATCH
-  (QuerySpecificationContext)-[]->(select_sym:EndNode)
-WHERE SelectItemListContext.message = 'SelectItemListContext'
-  and QuerySpecificationContext.message = 'QuerySpecificationContext'
-  and FromClauseContext.message = 'FromClauseContext'
-MERGE (inputs)-[:Effect]-(outs)
-set select_sym.delete = TRUE
-;
-
 MATCH p=(SelectStatementContext:Node)
   -[:link_query *..]->(QueryExpressionContext:Node)
   -[:Children]->(QueryExpressionBodyContext:Node)
@@ -36,4 +21,22 @@ MERGE (rule)-[:Children]->(outs)
 FOREACH (n in nodes(p)| set n.delete = TRUE)
 set SelectStatementContext.delete = FALSE
 remove outs.delete
+;
+
+
+MATCH
+  (select:ACTION)
+    -[:Children]->(outs:OUTS)
+  <-[:Deduce]-(SelectItemListContext:Node)
+  <-[:Children]-(QuerySpecificationContext:Node)
+  -[:Children]->(FromClauseContext:Node)
+  -[:Deduce]->(tables:TABLES)
+OPTIONAL MATCH
+  (QuerySpecificationContext)-[]->(select_sym:EndNode)
+WHERE select.type = "select"
+  and SelectItemListContext.message = 'SelectItemListContext'
+  and QuerySpecificationContext.message = 'QuerySpecificationContext'
+  and FromClauseContext.message = 'FromClauseContext'
+MERGE (select)-[:from]->(tables)
+set select_sym.delete = TRUE
 ;

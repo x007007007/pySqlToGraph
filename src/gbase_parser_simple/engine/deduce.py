@@ -100,12 +100,12 @@ class Deduce(object):
             return table, id(table) as id
         """)
 
-        self.session.run(f"""
-            MATCH (update:ACTION)
-                -[:Children]->(:WRITE)
-                -[:Children]->(field:FIELD)
-            where id(update) = {record_id}
-        """)
+        # self.session.run(f"""
+        #     MATCH (update:ACTION)
+        #         -[:Children]->(:WRITE)
+        #         -[:Children]->(field:FIELD)
+        #     where id(update) = {record_id}
+        # """)
 
     def action_call(self, record, record_id, record_data, context):
         name = record_data['action'].get('name')
