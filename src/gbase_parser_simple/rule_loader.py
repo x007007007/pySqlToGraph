@@ -26,6 +26,7 @@ class Rule:
         "select/join_in",
         "select/connect_select",
         "select/subquery_link",
+        "frag/subquery_shortcut",
         "create_table/table",
         "merge/before_update",
         "update/update",
