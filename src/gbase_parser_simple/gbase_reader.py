@@ -120,21 +120,21 @@ if __name__ == "__main__":
     from gbase_parser_simple.engine.deduce import Deduce
 
     db = DatabaseExample("neo4j://localhost:7687", "neo4j", "123456")
-    db.clean()
-    print("start generate graph")
-    for pth in glob.glob("/home/xxc-dev-machine/workspace/bocwm/pySqlToGraph/test/gbase_sql/test_sql/*.sql"):
-        with open(pth, "rb") as fp:
-            result = chardet.detect(fp.read())
-        with open(pth, encoding=result['encoding']) as fp:
-            for context in delimiter_parse(fp.read()):
-                if context:
-                    print("===========================start===============================")
-                    print(context)
-                    print("===========================end===============================")
-                    generate_tree(context, db)
-
-        # break
-    print("generate tree done")
-    analysis_tree(db)
+    # db.clean()
+    # print("start generate graph")
+    # for pth in glob.glob("/home/xxc-dev-machine/workspace/bocwm/pySqlToGraph/test/gbase_sql/test_sql/*.sql"):
+    #     with open(pth, "rb") as fp:
+    #         result = chardet.detect(fp.read())
+    #     with open(pth, encoding=result['encoding']) as fp:
+    #         for context in delimiter_parse(fp.read()):
+    #             if context:
+    #                 print("===========================start===============================")
+    #                 print(context)
+    #                 print("===========================end===============================")
+    #                 generate_tree(context, db)
+    #
+    #     # break
+    # print("generate tree done")
+    # analysis_tree(db)
     deduce = Deduce(db)
     deduce.root()
